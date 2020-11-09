@@ -4,7 +4,8 @@
 ## Objectif
 L’objectif à travers de ce projet est de réaliser le jeu de la bataille navale afin de montrer nos compétences en matière de programmation Python. Mais également de divertir les potentiels joueurs.
 
-## Besoins fonctionnels du MVP
+##MVP
+### Besoins fonctionnels du MVP
 Les besoins fonctionnels de ce projet sont:
 * Une interface graphique et une interface console sur lesquelles l’utilisateurpeut jouer. C’est-à-dire que les grilles s’affichent également en interface console.
 * Dans l’interface graphique, il y aura un bouton « help » qui permettra de décrire le fonctionnement du jeu si l’utilisateur en a besoin.
@@ -33,10 +34,10 @@ Chaque navire possède une longueur déterminé et innchangable, voici la descri
 * Black Pearl :
     * Longueur de 2 cases.
 
-## Fonctionnalité supplémentaire
+### Fonctionnalité supplémentaire
 Le client aura droit à choisir le niveaux dans lequel il préfère jouer. Chaque niveau est limité par un nombre de tours (pas modificable !).
 
-## Mode d'emploi
+### Mode d'emploi
 
 Le client doit se rendre dans le dossier dans lequel il y a:
 * **Les fichiers contenant le MVP en question** 
@@ -46,11 +47,11 @@ Après la recherche des fichiers, le client doit simplement saisir dans l'invit�
 
 
 
-### Interface
+## Interface
 L’interface sera simple d’utilisation, ergonomique. Il sera également possible de jouer en console.
 
 
-### Déroulement d’une partie
+## Déroulement d’une partie
 
 1. Le joueur rentre son prénom afin de l’identifier.
 2. Il choisit le niveau de difficulté du jeu (facile, normal, difficile)
