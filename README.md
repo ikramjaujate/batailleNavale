@@ -34,13 +34,13 @@ Chaque navire possède une longueur déterminé et innchangable, voici la descri
 * Black Pearl :
     * Longueur de 2 cases.
 
-### Fonctionnalité supplémentaire
+#### Fonctionnalité supplémentaire
 Le client aura droit à choisir le niveaux dans lequel il préfère jouer. Chaque niveau est limité par un nombre de tours (pas modificable !).
 
-### Mode d'emploi
+#### Mode d'emploi
 
 Le client doit se rendre dans le dossier dans lequel il y a:
-* **Les fichiers contenant le MVP en question** 
+ * **__Les fichiers contenant le MVP en question__** 
 
 Après la recherche des fichiers, le client doit simplement saisir dans l'invité de commandes :
  > **_python fichierMVP.py_**
