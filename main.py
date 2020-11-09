@@ -121,85 +121,94 @@ grille_tirs = ocean.grille()
 grille_ennemi = ocean.grille()
 
 #print(ennemi_bateaux)
-for nombre_tours in range(0, tours):
+#Creation d'une boucle pour s'assurer que l'utilisateur puisse jouer autant de fois qu'il le souhaite
+continuer = "Y"
+while continuer:
+    for nombre_tours in range(0, tours):
 
-    print("Capitaine, à votre tour!")
-    while True:
-        try:
-            tir_colonne = input("Dans quelle colonne souhaitez-vous tirer? ")
-            if len(tir_colonne) == 1 and tir_colonne.isalpha() and conversion.conversion_int(
-                    tir_colonne) <= hauteur:
-                break
-            else:
+        print("Capitaine, à votre tour!")
+        while True:
+            try:
+                tir_colonne = input("Dans quelle colonne souhaitez-vous tirer? ")
+                if len(tir_colonne) == 1 and tir_colonne.isalpha() and conversion.conversion_int(
+                        tir_colonne) <= hauteur:
+                    break
+                else:
+                    print("Vous ne savez pas tirer moussaillon! Allez, vite!")
+            except ValueError:
                 print("Vous ne savez pas tirer moussaillon! Allez, vite!")
-        except ValueError:
-            print("Vous ne savez pas tirer moussaillon! Allez, vite!")
-            continue
-    tir_colonne = conversion.conversion_int(tir_colonne)
-    while True:
-        try:
-            tir_ligne = int(input("Dans quelle ligne souhaitez-vous tirer? "))
-            if tir_ligne <= hauteur:
-                break
-            else:
+                continue
+        tir_colonne = conversion.conversion_int(tir_colonne)
+        while True:
+            try:
+                tir_ligne = int(input("Dans quelle ligne souhaitez-vous tirer? "))
+                if tir_ligne <= hauteur:
+                    break
+                else:
+                    print("Vous ne savez pas tirer moussaillon! Allez, vite!")
+            except ValueError:
                 print("Vous ne savez pas tirer moussaillon! Allez, vite!")
-        except ValueError:
-            print("Vous ne savez pas tirer moussaillon! Allez, vite!")
-            continue
-    tuple_ensemble_coordonees_tir = (tir_colonne, tir_ligne)
+                continue
+        tuple_ensemble_coordonees_tir = (tir_colonne, tir_ligne)
 
-    # Tours de l'odinateur
-    colonne_enemie = random.random_colonne(ordi_grille)
-    ligne_enemie = random.random_ligne(ordi_grille)
-    tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
+        # Tours de l'odinateur
+        colonne_enemie = random.random_colonne(ordi_grille)
+        ligne_enemie = random.random_ligne(ordi_grille)
+        tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
 
 
-    # Resolution tirs joueur
-    if tuple_ensemble_coordonees_tir in ennemi_bateaux:
-        print(ennemi_bateaux)
-        grille_tirs[tir_ligne][tir_colonne] = "X"
-        ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
-        joueurs_coup += 1
-        print(Couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + Couleurs.CEND)
+        # Resolution tirs joueur
+        if tuple_ensemble_coordonees_tir in ennemi_bateaux:
+            print(ennemi_bateaux)
+            grille_tirs[tir_ligne][tir_colonne] = "X"
+            ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
+            joueurs_coup += 1
+            print(Couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + Couleurs.CEND)
 
-        if len(ennemi_bateaux) == 0:
-            print("ON LES A BATTU !!!!!")
-            break
-    else:
-        if grille_tirs[tir_ligne][tir_colonne] == "*":
-            print(Couleurs.CVIOLET + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + Couleurs.CEND)
-            print("---------------------------------------------------")
+            if len(ennemi_bateaux) == 0:
+                print("ON LES A BATTU !!!!!")
+                break
         else:
-            grille_tirs[tir_ligne][tir_colonne] = "*"
-            print(Couleurs.CBLUE + "Moussaillon....vous avez tiré sur le requin !" + Couleurs.CEND)
+            if grille_tirs[tir_ligne][tir_colonne] == "*":
+                print(Couleurs.CVIOLET + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + Couleurs.CEND)
+                print("---------------------------------------------------")
+            else:
+                grille_tirs[tir_ligne][tir_colonne] = "*"
+                print(Couleurs.CBLUE + "Moussaillon....vous avez tiré sur le requin !" + Couleurs.CEND)
+                print("---------------------------------------------------")
+
+        print_grille(grille_tirs)
+
+        if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
+            ma_grille[ligne_enemie][colonne_enemie] = "X"
+            joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
+            ennemi_coup += 1
+            print(Couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + Couleurs.CEND)
             print("---------------------------------------------------")
 
-    print_grille(grille_tirs)
+            if len(joueur_bateaux) == 0:
+                print("ON EST ENTRAIN DE COULER !!!!!")
+                break
+        else:
+            if ma_grille[ligne_enemie][colonne_enemie] == "*":
+                print(Couleurs.CYELLOW + "Toute façon, ils l'ont déjà touché ce bateau" + Couleurs.CEND)
+                print("---------------------------------------------------")
+            else:
+                ma_grille[ligne_enemie][colonne_enemie] = "*"
+                ("---------------------------------------------------")
+                ("---------------------------------------------------")
+                print(Couleurs.CYELLOW + "HIHI, ils ont touché la balaine" + Couleurs.CEND)
+                print("---------------------------------------------------")
 
-    if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
-        ma_grille[ligne_enemie][colonne_enemie] = "X"
-        joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
-        ennemi_coup += 1
-        print(Couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + Couleurs.CEND)
+        print_grille(ma_grille)
+
+        if another_turn(tours) == False:
+            break
+
         print("---------------------------------------------------")
 
-        if len(joueur_bateaux) == 0:
-            print("ON EST ENTRAIN DE COULER !!!!!")
-            break
-    else:
-        if ma_grille[ligne_enemie][colonne_enemie] == "*":
-            print(Couleurs.CYELLOW + "Toute façon, ils l'ont déjà touché ce bateau" + Couleurs.CEND)
-            print("---------------------------------------------------")
-        else:
-            ma_grille[ligne_enemie][colonne_enemie] = "*"
-            ("---------------------------------------------------")
-            ("---------------------------------------------------")
-            print(Couleurs.CYELLOW + "HIHI, ils ont touché la balaine" + Couleurs.CEND)
-            print("---------------------------------------------------")
-
-    print_grille(ma_grille)
-
-    if another_turn(tours) == False:
-        break
-
-    print("---------------------------------------------------")
+    continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+    while continuer != "1" and continuer != "0":
+        print("Chiffre pas valable")
+        continuer = input(str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+    continuer = int(continuer)
