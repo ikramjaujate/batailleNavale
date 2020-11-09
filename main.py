@@ -122,7 +122,7 @@ grille_ennemi = ocean.grille()
 
 #print(ennemi_bateaux)
 #Creation d'une boucle pour s'assurer que l'utilisateur puisse jouer autant de fois qu'il le souhaite
-continuer = "Y"
+continuer = 1
 while continuer:
     for nombre_tours in range(0, tours):
 
