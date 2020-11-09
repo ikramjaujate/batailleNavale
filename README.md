@@ -6,6 +6,7 @@ L’objectif à travers de ce projet est de réaliser le jeu de la bataille nava
 
 ##MVP
 Voici la déscription du MVP.
+
 ### Besoins fonctionnels du MVP
 Les besoins fonctionnels de ce projet sont:
 * Une interface graphique et une interface console sur lesquelles l’utilisateurpeut jouer. C’est-à-dire que les grilles s’affichent également en interface console.
