@@ -1,4 +1,4 @@
-# Bataille navale projet
+# Bataille navale
 > Implémentation du projet BATAILLE NAVALE dans le cadre du cours de Développement informatique II (Python).
 
 ## Objectif
