@@ -1,3 +1,4 @@
+#Classe Couleur contenant les couleurs pour l'affichage
 class Couleurs:
     CEND = '\33[0m'
     CBLACK = '\33[30m'

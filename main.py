@@ -49,9 +49,8 @@ def print_grille(gri):
 joueur_bateaux = []
 
 NOMBRE_BATEAUX = 3
-
 for i in range(NOMBRE_BATEAUX):
-    # we also want to avoid duplicates
+    '''Parcours du nombre de bateaux afin de les ajouter dans une liste appartenant au joueur '''
     while True:
         # COLONNE DU JOUEUR
         while True:
@@ -65,7 +64,7 @@ for i in range(NOMBRE_BATEAUX):
             except ValueError:
                 print("Un pirate ne placerait jamais son bateau sur terre...Réessaye")
                 continue
-        joueur_colonne = conversion.conversion_int(joueur_colonne)
+        joueur_colonne = conversion.conversion_int(joueur_colonne) #conversion de la lettre en nombre
 
         # LIGNE DU JOUEUR
         while True:
@@ -81,18 +80,14 @@ for i in range(NOMBRE_BATEAUX):
 
         if (joueur_colonne, joueur_ligne) not in joueur_bateaux:
             joueur_bateaux.append((joueur_colonne, joueur_ligne))
-
-            # we assign the player's bship on the player_grid
-            ma_grille[joueur_ligne][joueur_colonne] = '|'
+            ma_grille[joueur_ligne][joueur_colonne] = '|' # ajout du bateaux dans la grille
             break
 
 print('------------MA GRILLE---------------------------')
-print_grille(ma_grille)
+print_grille(ma_grille) #affichage de notre grille avec les bateaux
 
 
 # Encore un tours
-joueurs_coup = 0
-ennemi_coup = 0
 def another_turn(tour):
     if tour == nombre_tours - 1:
         print("C'est fini....")
@@ -102,11 +97,10 @@ def another_turn(tour):
 
 
 ennemi_bateaux = []
-
 ordi_grille = ocean.grille()
 
 for i in range(NOMBRE_BATEAUX):
-
+    '''Parcours du nombre de bateaux afin de les ajouter dans une liste appartenant à l'ennemi '''
     while True:
         colonne_enemie = random.random_colonne(ordi_grille)
         ligne_enemie = random.random_ligne(ordi_grille)
@@ -116,16 +110,16 @@ for i in range(NOMBRE_BATEAUX):
             ordi_grille[ligne_enemie][colonne_enemie] = '|'
             break
 
-# print_grille(ordi_grille)
-grille_tirs = ocean.grille()
-grille_ennemi = ocean.grille()
 
-#print(ennemi_bateaux)
+grille_tirs = ocean.grille()
+
 #Creation d'une boucle pour s'assurer que l'utilisateur puisse jouer autant de fois qu'il le souhaite
 continuer = 1
 while continuer:
-    for nombre_tours in range(0, tours):
 
+    joueurs_points = 0 #stockage des points gagnés par le joueur
+    ennemi_points = 0 #stockage des points gagnés par l'ennemi
+    for nombre_tours in range(0, tours):
         print("Capitaine, à votre tour!")
         while True:
             try:
@@ -160,29 +154,30 @@ while continuer:
         # Resolution tirs joueur
         if tuple_ensemble_coordonees_tir in ennemi_bateaux:
             print(ennemi_bateaux)
-            grille_tirs[tir_ligne][tir_colonne] = "X"
+            grille_tirs[tir_ligne][tir_colonne] = Couleurs.CRED + "X" + Couleurs.CEND
             ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
-            joueurs_coup += 1
+            joueurs_points += 1
             print(Couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + Couleurs.CEND)
 
             if len(ennemi_bateaux) == 0:
-                print("ON LES A BATTU !!!!!")
+                print("Capitaine, nous avons coulé tous les navires de nos ennemis")
                 break
         else:
             if grille_tirs[tir_ligne][tir_colonne] == "*":
                 print(Couleurs.CVIOLET + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + Couleurs.CEND)
                 print("---------------------------------------------------")
             else:
-                grille_tirs[tir_ligne][tir_colonne] = "*"
+                grille_tirs[tir_ligne][tir_colonne] = Couleurs.CYELLOW + "*" + Couleurs.CEND
                 print(Couleurs.CBLUE + "Moussaillon....vous avez tiré sur le requin !" + Couleurs.CEND)
                 print("---------------------------------------------------")
 
         print_grille(grille_tirs)
 
+        # Resolution tirs ennemie
         if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
-            ma_grille[ligne_enemie][colonne_enemie] = "X"
+            ma_grille[ligne_enemie][colonne_enemie] = Couleurs.CRED + "X" + Couleurs.CEND
             joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
-            ennemi_coup += 1
+            ennemi_points += 1
             print(Couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + Couleurs.CEND)
             print("---------------------------------------------------")
 
@@ -194,7 +189,7 @@ while continuer:
                 print(Couleurs.CYELLOW + "Toute façon, ils l'ont déjà touché ce bateau" + Couleurs.CEND)
                 print("---------------------------------------------------")
             else:
-                ma_grille[ligne_enemie][colonne_enemie] = "*"
+                ma_grille[ligne_enemie][colonne_enemie] = Couleurs.CYELLOW + "*" + Couleurs.CEND
                 ("---------------------------------------------------")
                 ("---------------------------------------------------")
                 print(Couleurs.CYELLOW + "HIHI, ils ont touché la balaine" + Couleurs.CEND)
@@ -206,9 +201,15 @@ while continuer:
             break
 
         print("---------------------------------------------------")
-
-    continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+    clear()
+    if joueurs_points == ennemi_points:
+        print("egalité")
+    elif joueurs_points < ennemi_points:
+        print("perdu")
+    else:
+        print('gagné')
+    continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
     while continuer != "1" and continuer != "0":
         print("Chiffre pas valable")
-        continuer = input(str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+        continuer = input(str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
     continuer = int(continuer)
