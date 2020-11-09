@@ -175,15 +175,14 @@ for nombre_tours in range(0, tours):
         grille_tirs[tir_ligne][tir_colonne] = "X"
         ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
 
-        print(colors.bcolors.OKGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + colors.bcolors.ENDC)
-
+        print(colors.couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + colors.couleurs.CEND)
     else:
         if grille_tirs[tir_ligne][tir_colonne] == "*":
-            print(colors.bcolors.WARNING + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + colors.bcolors.ENDC)
+            print(colors.couleurs.CYELLOW  + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + colors.couleurs.CEND)
             print("---------------------------------------------------")
         else:
             grille_tirs[tir_ligne][tir_colonne] = "*"
-            print(colors.bcolors.WARNING + "Moussaillon....vous avez tiré sur le requin !" + colors.bcolors.ENDC )
+            print(colors.couleurs.CYELLOW + "Moussaillon....vous avez tiré sur le requin !" + colors.couleurs.CEND )
             print("---------------------------------------------------")
 
     print_grille(grille_tirs)
@@ -191,23 +190,21 @@ for nombre_tours in range(0, tours):
     if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
         ma_grille[tir_ligne][tir_colonne].replace("|", "X")
         joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
-        print(colors.bcolors.WARNING + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + colors.bcolors.ENDC )
+        print(colors.couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + colors.couleurs.CEND )
         print("---------------------------------------------------")
-
 
     else:
         if ma_grille[ligne_enemie][colonne_enemie] == "*":
-            print(colors.bcolors.OKGREEN +"Toute façon, ils l'ont déjà touché ce bateau" + colors.bcolors.ENDC)
+            print(colors.couleurs.CGREEN +"Toute façon, ils l'ont déjà touché ce bateau" + colors.couleurs.CEND)
             print("---------------------------------------------------")
         else:
             ma_grille[ligne_enemie][colonne_enemie] = "*"
             ("---------------------------------------------------")
             ("---------------------------------------------------")
-            print(colors.bcolors.OKGREEN +"HIHI, ils ont touché la balaine" + colors.bcolors.ENDC)
+            print(colors.couleurs.CVIOLET +"HIHI, ils ont touché la balaine" + colors.couleurs.CEND)
             print("---------------------------------------------------")
 
     print_grille(ma_grille)
-
 
     if another_turn(tours) == False:
         break
