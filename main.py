@@ -201,13 +201,13 @@ while continuer:
             break
 
         print("---------------------------------------------------")
-    clear()
+
     if joueurs_points == ennemi_points:
-        print("egalité")
+        print("C'était une très bonne partie mon capitaine, vous êtes à égalité")
     elif joueurs_points < ennemi_points:
-        print("perdu")
+        print("Vous voilà noyé....vous avez perdu moussaillon !")
     else:
-        print('gagné')
+        print("Jack Sparrow serait très fière de vous, vous avez coulé les bateaux ennemis !!")
     continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
     while continuer != "1" and continuer != "0":
         print("Chiffre pas valable")
