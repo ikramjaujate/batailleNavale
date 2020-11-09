@@ -2,7 +2,6 @@ from utils import random
 from utils import conversion
 from main import clear
 from colorama import Fore, Back, Style
-from utils import colors
 
 from bateau import Bateau, BlackPearl, HmsIntercepteur, TheDyingGull, QueenAnneRevenge, SilentMary
 col_header = {0: 'x', 1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'I', 10: 'J', 11: 'K'}
@@ -33,7 +32,7 @@ while estOk == 0 :
             estOk = 1
             continue
     else:
-            print("Mauvais")
+            print("Ce niveau n'existe pas :/")
             difficulte = input("Capitaine, quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
             estOk = 0
 
