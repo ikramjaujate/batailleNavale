@@ -153,7 +153,7 @@ while continuer:
 
         # Resolution tirs joueur
         if tuple_ensemble_coordonees_tir in ennemi_bateaux:
-            print(ennemi_bateaux)
+
             grille_tirs[tir_ligne][tir_colonne] = Couleurs.CRED + "X" + Couleurs.CEND
             ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
             joueurs_points += 1
@@ -203,11 +203,11 @@ while continuer:
         print("---------------------------------------------------")
 
     if joueurs_points == ennemi_points:
-        print("C'était une très bonne partie mon capitaine, vous êtes à égalité")
+        print("C'était une très bonne partie mon capitaine " + joueur_nom.getNom() + " , vous êtes à égalité")
     elif joueurs_points < ennemi_points:
         print("Vous voilà noyé....vous avez perdu moussaillon !")
     else:
-        print("Jack Sparrow serait très fière de vous, vous avez coulé les bateaux ennemis !!")
+        print("Jack Sparrow serait très fière de vous capitaine "+ joueur_nom.getNom() + " , vous avez coulé les bateaux ennemis !!")
     continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
     while continuer != "1" and continuer != "0":
         print("Chiffre pas valable")
