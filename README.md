@@ -34,7 +34,7 @@ Chaque navire possède une longueur déterminé et innchangable, voici la descri
 * Black Pearl :
     * Longueur de 2 cases.
 
-#### Fonctionnalités supplémentaires
+#### Fonctionnalité supplémentaire
 Le client aura droit à choisir le niveaux dans lequel il préfère jouer. Chaque niveau est limité par un nombre de tours (pas modificable !).
 
 #### Mode d'emploi
