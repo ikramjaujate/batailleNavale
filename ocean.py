@@ -2,8 +2,8 @@ from utils import random
 from utils import conversion
 from main import clear
 from colorama import Fore, Back, Style
-
-from bateau import Bateau, BlackPearl, HmsIntercepteur, TheDyingGull, QueenAnneRevenge, SilentMary
+import joueur
+from couleur import Couleurs
 col_header = {0: 'x', 1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'I', 10: 'J', 11: 'K'}
 row_header = {0: 'x', 1: ' 1', 2: ' 2', 3: ' 3', 4: ' 4', 5: ' 5', 6: ' 6', 7: ' 7', 8: ' 8', 9: ' 9', 10: '10'}
 
@@ -11,7 +11,7 @@ hauteur = 0
 largeur = 0
 estOk = 0
 tours = 0
-difficulte = input("Capitaine, quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
+difficulte = input("Capitaine " + joueur.nom_joueur + ", quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
 while estOk == 0 :
     if difficulte == "FACILE":
             hauteur += 6
@@ -54,7 +54,7 @@ class Ocean:
             ma_grille.append(["."] * calcule)
 
         for i in range(0, len(ma_grille)):
-            ma_grille[0][0] = " "
+            ma_grille[0][0] = "  "
             ma_grille[0][i] = col_header[i]  # col
             ma_grille[i][0] = row_header[i]  # row
 
@@ -120,6 +120,7 @@ def another_turn(tour):
         return True
 
 ennemi_bateaux = []
+
 ordi_grille = ocean.grille()
 
 for i in range(nombre_bateaux):
@@ -136,6 +137,8 @@ for i in range(nombre_bateaux):
 #print_grille(ordi_grille)
 grille_tirs = ocean.grille()
 grille_ennemi = ocean.grille()
+
+print(ennemi_bateaux)
 for nombre_tours in range(0, tours):
     
     print("Capitaine, à votre tour!")
@@ -169,38 +172,51 @@ for nombre_tours in range(0, tours):
     tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
 
 
+
+    joueurs_coup = 0
+    ennemi_coup = 0
+
     #Resolution tirs joueur
     if tuple_ensemble_coordonees_tir in ennemi_bateaux:
+        print(ennemi_bateaux)
         grille_tirs[tir_ligne][tir_colonne] = "X"
         ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
+        joueurs_coup += 1
+        print(Couleurs.CGREEN +"BIEN MOUSSAILLON !! On a coulé le navire !"+ Couleurs.CEND)
 
-        print(colors.couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + colors.couleurs.CEND)
+        if len(ennemi_bateaux) == 0:
+            print("ON LES A BATTU !!!!!")
+            break
     else:
         if grille_tirs[tir_ligne][tir_colonne] == "*":
-            print(colors.couleurs.CYELLOW  + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + colors.couleurs.CEND)
+            print(Couleurs.CVIOLET + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!"+ Couleurs.CEND)
             print("---------------------------------------------------")
         else:
             grille_tirs[tir_ligne][tir_colonne] = "*"
-            print(colors.couleurs.CYELLOW + "Moussaillon....vous avez tiré sur le requin !" + colors.couleurs.CEND )
+            print(Couleurs.CBLUE + "Moussaillon....vous avez tiré sur le requin !" + Couleurs.CEND)
             print("---------------------------------------------------")
 
     print_grille(grille_tirs)
 
     if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
-        ma_grille[tir_ligne][tir_colonne].replace("|", "X")
+        ma_grille[ligne_enemie][colonne_enemie] = "X"
         joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
-        print(colors.couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + colors.couleurs.CEND )
+        ennemi_coup += 1
+        print(Couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + Couleurs.CEND)
         print("---------------------------------------------------")
 
+        if len(joueur_bateaux) == 0:
+            print("ON EST ENTRAIN DE COULER !!!!!")
+            break
     else:
         if ma_grille[ligne_enemie][colonne_enemie] == "*":
-            print(colors.couleurs.CGREEN +"Toute façon, ils l'ont déjà touché ce bateau" + colors.couleurs.CEND)
+            print(Couleurs.CYELLOW + "Toute façon, ils l'ont déjà touché ce bateau" + Couleurs.CEND )
             print("---------------------------------------------------")
         else:
             ma_grille[ligne_enemie][colonne_enemie] = "*"
             ("---------------------------------------------------")
             ("---------------------------------------------------")
-            print(colors.couleurs.CVIOLET +"HIHI, ils ont touché la balaine" + colors.couleurs.CEND)
+            print(Couleurs.CYELLOW + "HIHI, ils ont touché la balaine" + Couleurs.CEND)
             print("---------------------------------------------------")
 
     print_grille(ma_grille)
