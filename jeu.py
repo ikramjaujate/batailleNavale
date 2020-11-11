@@ -152,6 +152,7 @@ def main():
             colonne_enemie = random.random_colonne(ordi_grille)
             ligne_enemie = random.random_ligne(ordi_grille)
             tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
+            #print(ennemi_bateaux)
 
             clear.clear()
             # Resolution tirs joueur
@@ -160,7 +161,7 @@ def main():
                 grille_tirs[tir_ligne][tir_colonne] = Couleurs.CRED + "X" + Couleurs.CEND
                 ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
                 joueurs_points += 1
-                print(Couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + Couleurs.CEND)
+                print(Couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + "(en " + str(nombre_tours + 1) + " tirs)" + Couleurs.CEND )
 
                 if len(ennemi_bateaux) == 0:
                     print("Capitaine, nous avons coulé tous les navires de nos ennemis")
