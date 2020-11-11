@@ -151,13 +151,13 @@ def main():
             colonne_enemie = random.random_colonne(ordi_grille)
             ligne_enemie = random.random_ligne(ordi_grille)
             tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
-            print(ennemi_bateaux)
+            #print(ennemi_bateaux) # pour le debug
 
             clear.clear()
             # Resolution tirs joueur
             if tuple_ensemble_coordonees_tir in ennemi_bateaux:
 
-                grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CRED +" {} " + Couleurs.CEND).format("X")
+                grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CRED +"{}" + Couleurs.CEND).format("X")
                 ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
                 joueurs_points += 1
                 print(str(Couleurs.CGREEN  +" {} " + Couleurs.CEND).format("BIEN MOUSSAILLON !! On a coulé le navire !" + "(en " + str(nombre_tours + 1) + " tirs)"))
@@ -170,7 +170,7 @@ def main():
                     print(str(Couleurs.CVIOLET +" {} " + Couleurs.CEND).format("Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!"))
                     print("---------------------------------------------------")
                 else:
-                    grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("*")
+                    grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CYELLOW +"{}" + Couleurs.CEND).format("*")
                     print(str(Couleurs.CBLUE +" {} " + Couleurs.CEND).format("Moussaillon....vous avez tiré sur le requin !"))
                     print("---------------------------------------------------")
 
@@ -178,7 +178,7 @@ def main():
 
             # Resolution tirs ennemie
             if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
-                ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CRED +" {} " + Couleurs.CEND).format("X")
+                ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CRED +"{}" + Couleurs.CEND).format("X")
                 joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
                 ennemi_points += 1
                 print(str(Couleurs.CRED +" {} " + Couleurs.CEND).format("NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !"))
@@ -192,7 +192,7 @@ def main():
                     print(str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("Toute façon, ils l'ont déjà touché ce bateau"))
                     print("---------------------------------------------------")
                 else:
-                    ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("*")
+                    ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CYELLOW +"{}" + Couleurs.CEND).format("*")
                     ("---------------------------------------------------")
                     ("---------------------------------------------------")
                     print(str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("HIHI, ils ont touché la balaine"))
