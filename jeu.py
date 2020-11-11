@@ -151,7 +151,7 @@ def main():
             colonne_enemie = random.random_colonne(ordi_grille)
             ligne_enemie = random.random_ligne(ordi_grille)
             tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
-            #print(ennemi_bateaux) # pour le debug
+            #print(ennemi_bateaux)
 
             clear.clear()
             # Resolution tirs joueur
