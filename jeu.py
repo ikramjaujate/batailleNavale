@@ -151,37 +151,37 @@ def main():
             colonne_enemie = random.random_colonne(ordi_grille)
             ligne_enemie = random.random_ligne(ordi_grille)
             tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
-            #print(ennemi_bateaux)
+            print(ennemi_bateaux)
 
             clear.clear()
             # Resolution tirs joueur
             if tuple_ensemble_coordonees_tir in ennemi_bateaux:
 
-                grille_tirs[tir_ligne][tir_colonne] = Couleurs.CRED + "X" + Couleurs.CEND
+                grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CRED +" {} " + Couleurs.CEND).format("X")
                 ennemi_bateaux.pop(ennemi_bateaux.index(tuple_ensemble_coordonees_tir))
                 joueurs_points += 1
-                print(Couleurs.CGREEN + "BIEN MOUSSAILLON !! On a coulé le navire !" + "(en " + str(nombre_tours + 1) + " tirs)" + Couleurs.CEND )
+                print(str(Couleurs.CGREEN  +" {} " + Couleurs.CEND).format("BIEN MOUSSAILLON !! On a coulé le navire !" + "(en " + str(nombre_tours + 1) + " tirs)"))
 
                 if len(ennemi_bateaux) == 0:
                     print("Capitaine, nous avons coulé tous les navires de nos ennemis")
                     break
             else:
                 if grille_tirs[tir_ligne][tir_colonne] == "*":
-                    print(Couleurs.CVIOLET + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + Couleurs.CEND)
+                    print(str(Couleurs.CVIOLET +" {} " + Couleurs.CEND).format("Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!"))
                     print("---------------------------------------------------")
                 else:
                     grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("*")
-                    print(Couleurs.CBLUE + "Moussaillon....vous avez tiré sur le requin !" + Couleurs.CEND)
+                    print(str(Couleurs.CBLUE +" {} " + Couleurs.CEND).format("Moussaillon....vous avez tiré sur le requin !"))
                     print("---------------------------------------------------")
 
             print_grille(grille_tirs)
 
             # Resolution tirs ennemie
             if tuple_ensemble_coordonees_tir_ennemie in joueur_bateaux:
-                ma_grille[ligne_enemie][colonne_enemie] = Couleurs.CRED + "X" + Couleurs.CEND
+                ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CRED +" {} " + Couleurs.CEND).format("X")
                 joueur_bateaux.pop(joueur_bateaux.index(tuple_ensemble_coordonees_tir_ennemie))
                 ennemi_points += 1
-                print(Couleurs.CRED + "NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !" + Couleurs.CEND)
+                print(str(Couleurs.CRED +" {} " + Couleurs.CEND).format("NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX !"))
                 print("---------------------------------------------------")
 
                 if len(joueur_bateaux) == 0:
@@ -189,13 +189,13 @@ def main():
                     break
             else:
                 if ma_grille[ligne_enemie][colonne_enemie] == "*":
-                    print(Couleurs.CYELLOW + "Toute façon, ils l'ont déjà touché ce bateau" + Couleurs.CEND)
+                    print(str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("Toute façon, ils l'ont déjà touché ce bateau"))
                     print("---------------------------------------------------")
                 else:
                     ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("*")
                     ("---------------------------------------------------")
                     ("---------------------------------------------------")
-                    print(Couleurs.CYELLOW + "HIHI, ils ont touché la balaine" + Couleurs.CEND)
+                    print(str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("HIHI, ils ont touché la balaine"))
                     print("---------------------------------------------------")
 
             print_grille(ma_grille)
