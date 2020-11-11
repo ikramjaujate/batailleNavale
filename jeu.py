@@ -1,6 +1,5 @@
 from utils import random
 from utils import conversion
-from colorama import Fore, Back, Style
 from joueur import Joueur
 from utils.couleur import Couleurs
 from ocean import Ocean
@@ -171,7 +170,7 @@ def main():
                     print(Couleurs.CVIOLET + "Moussaillon, vous avez déjà tiré là ! Donnez moi ça !!!" + Couleurs.CEND)
                     print("---------------------------------------------------")
                 else:
-                    grille_tirs[tir_ligne][tir_colonne] = Couleurs.CYELLOW + "*" + Couleurs.CEND
+                    grille_tirs[tir_ligne][tir_colonne] = str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("*")
                     print(Couleurs.CBLUE + "Moussaillon....vous avez tiré sur le requin !" + Couleurs.CEND)
                     print("---------------------------------------------------")
 
@@ -193,7 +192,7 @@ def main():
                     print(Couleurs.CYELLOW + "Toute façon, ils l'ont déjà touché ce bateau" + Couleurs.CEND)
                     print("---------------------------------------------------")
                 else:
-                    ma_grille[ligne_enemie][colonne_enemie] = Couleurs.CYELLOW + "*" + Couleurs.CEND
+                    ma_grille[ligne_enemie][colonne_enemie] = str(Couleurs.CYELLOW +" {} " + Couleurs.CEND).format("*")
                     ("---------------------------------------------------")
                     ("---------------------------------------------------")
                     print(Couleurs.CYELLOW + "HIHI, ils ont touché la balaine" + Couleurs.CEND)
