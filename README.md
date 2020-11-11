@@ -7,7 +7,29 @@ L’objectif à travers de ce projet est de réaliser le jeu de la bataille nava
 ## MVP
 Voici la déscription du MVP.
 
-### Besoins fonctionnels du MVP
+### Description MVP
+* Notre MVP fonctionnera en ligne de commande où la grille sera affichée en console. 
+
+* L'utilisateur commencera par introduire son prénom / pseudo.
+
+* L'utilisateur aura un nombre limité de bateaux à placer, les bateaux de l'ordinateur (contre qui l'utilisateur joue) seront placés de façon aléatoire.
+
+* Pour le MVP, l'utilisateur aura un nombre limité de tour, afin de ne pas éterniser la partie et la rendre plus chouette. La partie finira donc après x tours, le gagnant sera celui qui a touché le plus de bateaux, si aucun des joueurs n'a touché de bateaux, alors ce sera une égalité.
+
+* Quand le joueur choisi une case et qu'il "touche" un bateau ennemi, il peut alors rejouer un autre tour. Ce sera de même dans le cas contraire.
+
+* La grille ira de A à x pour les colonnes et de 1 à x pour les lignes, il sera donc demandé à l'utilisateur de placer les bateaux selon des coordonnées.
+
+* En ligne de commande, il sera demandé à l'utilisateur de donner une coordonnée. Si l'utilisateur insère une mauvaise coordonnée, il devra alors en réintroduire une valide.
+
+* La taille des bateaux fera une « case », il y en aura 3 à placer. Au cours du développement du programme, la taille des bateaux changera (1 sur 4 cases, ...) .
+
+* Quand une partie de bateau est touchée, un "X" apparaitra dans la grille qui se trouve en console.
+
+* Selon le gagnant de la partie, un message apparaitra disant " nomUtilisateur a gagné contre l'ordinateur" ou inversement.
+
+* A la fin de la partie, une fois le résultat affiché, il sera proposé au joueur de rejouer une partie ou de quitter le jeu.
+## Besoins fonctionnels du projet
 Les besoins fonctionnels de ce projet sont:
 * Une interface graphique et une interface console sur lesquelles l’utilisateurpeut jouer. C’est-à-dire que les grilles s’affichent également en interface console.
 * Dans l’interface graphique, il y aura un bouton « help » qui permettra de décrire le fonctionnement du jeu si l’utilisateur en a besoin.
