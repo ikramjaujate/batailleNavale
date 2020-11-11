@@ -5,7 +5,7 @@
 L’objectif à travers de ce projet est de réaliser le jeu de la bataille navale afin de montrer nos compétences en matière de programmation Python. Mais également de divertir les potentiels joueurs.
 
 ## MVP
-**__Voici la déscription du MVP.__**
+**Voici la déscription du MVP.**
 
 ### Description MVP
 * Notre MVP fonctionnera en ligne de commande où la grille sera affichée en console. 
