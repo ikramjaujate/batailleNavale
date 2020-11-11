@@ -4,8 +4,8 @@ from colorama import Fore, Back, Style
 from joueur import Joueur
 from utils.couleur import Couleurs
 from ocean import Ocean
-
-
+import os
+import clear
 hauteur = 0
 largeur = 0
 estOk = 0
@@ -114,7 +114,7 @@ for i in range(NOMBRE_BATEAUX):
 
 
 grille_tirs = ocean.grille()
-
+clear.clear()
 #Creation d'une boucle pour s'assurer que l'utilisateur puisse jouer autant de fois qu'il le souhaite
 def main():
     continuer = 1
@@ -153,7 +153,7 @@ def main():
             ligne_enemie = random.random_ligne(ordi_grille)
             tuple_ensemble_coordonees_tir_ennemie = (colonne_enemie, ligne_enemie)
 
-
+            clear.clear()
             # Resolution tirs joueur
             if tuple_ensemble_coordonees_tir in ennemi_bateaux:
 
