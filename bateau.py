@@ -3,8 +3,6 @@ class Bateau:
     def __init__(self, nom):
         self.nom = nom
 
-    def __str__(self):
-        return "{}".format(self.nom)
 
 class BlackPearl(Bateau):
     def __init__(self, nom, longeur = 5):
@@ -14,8 +12,10 @@ class BlackPearl(Bateau):
     @property
     def length(self):
         return self.longeur
-    def __str__(self):
-        return "Capitain {}, le navire {} à une longeur de {}".format(joueur.nom_joueur,self.nom, self.longeur)
+
+    @property
+    def getNom(self):
+        return "Black Pearl"
 
 class QueenAnneRevenge(Bateau):
     def __init__(self, nom, longeur = 4):
@@ -25,8 +25,10 @@ class QueenAnneRevenge(Bateau):
     @property
     def length(self):
         return self.longeur
-    def __str__(self):
-        return "Capitain {}, le navire {} à une longeur de {}".format(joueur.nom_joueur,self.nom, self.longeur)
+
+    @property
+    def getNom(self):
+        return "Queen Anne's Revenge"
 
 class SilentMary(Bateau):
     def __init__(self, nom, longeur = 3):
@@ -36,8 +38,10 @@ class SilentMary(Bateau):
     @property
     def length(self):
         return self.longeur
-    def __str__(self):
-        return "Capitain {}, le navire {} à une longeur de {}".format(joueur.nom_joueur,self.nom, self.longeur)
+
+    @property
+    def getNom(self):
+        return "Silent Mary"
 
 class HmsIntercepteur(Bateau):
     def __init__(self, nom, longeur = 3):
@@ -47,8 +51,10 @@ class HmsIntercepteur(Bateau):
     @property
     def length(self):
         return self.longeur
-    def __str__(self):
-        return "Capitain {}, le navire {} à une longeur de {}".format(joueur.nom_joueur,self.nom, self.longeur)
+
+    @property
+    def getNom(self):
+        return "HMS Intercepteur"
 
 class TheDyingGull(Bateau):
     def __init__(self, nom, longeur = 2):
@@ -58,13 +64,8 @@ class TheDyingGull(Bateau):
     def length(self):
         return self.longeur
 
-    def __str__(self):
-        return "Capitain {}, le navire {} à une longeur de {}".format(joueur.nom_joueur, self.nom, self.longeur)
+    @property
+    def getNom(self):
+        return "The Dying Gull"
 
-
-black_pearl = BlackPearl("Black Pearl")
-queen_anne_evenge = QueenAnneRevenge("Queen Anne's Revenge")
-silent_mary = SilentMary("Silent Mary")
-hms_intercepteur = HmsIntercepteur("HMS Intercepteur")
-the_dying_gull = TheDyingGull("The Dying Gull")
 

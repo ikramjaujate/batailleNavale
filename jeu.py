@@ -3,12 +3,15 @@ from utils import conversion
 from joueur import Joueur
 from utils.couleur import Couleurs
 from ocean import Ocean
+from bateau import *
 import os
 import clear
+
 hauteur = 0
 largeur = 0
 estOk = 0
 tours = 0
+total_bateau = {}
 
 nom_joueur = input("Capitaine, comment-vous appelez vous ?").upper()
 joueur_nom = Joueur(nom_joueur)
@@ -20,23 +23,34 @@ while estOk == 0 :
             largeur += 6
             tours += 4
             estOk = 1
+            total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
             continue
     elif difficulte == "MOYEN":
             hauteur += 8
             largeur += 8
             tours += 7
             estOk = 1
+            total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
             continue
     elif difficulte == "DIFFICILE":
             hauteur += 11
             largeur += 11
             tours += 10
             estOk = 1
+            total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
+            total_bateau[QueenAnneRevenge("Queen Anne's Revenge").getNom] = QueenAnneRevenge("Queen Anne's Revenge").length
+            total_bateau[BlackPearl("Black Pearl").getNom] = BlackPearl("Black Pearl").length
             continue
     else:
             print("Ce niveau n'existe pas :/")
             difficulte = input("Capitaine, quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
             estOk = 0
+
 
 ocean = Ocean(hauteur, largeur)
 ma_grille = ocean.grille()
@@ -48,9 +62,10 @@ def print_grille(gri):
 
 
 joueur_bateaux = []
+nombre_bateau = len(total_bateau)
 
-NOMBRE_BATEAUX = 3
-for i in range(NOMBRE_BATEAUX):
+
+for i in range(nombre_bateau):
     '''Parcours du nombre de bateaux afin de les ajouter dans une liste appartenant au joueur '''
     while True:
         # COLONNE DU JOUEUR
@@ -78,10 +93,14 @@ for i in range(NOMBRE_BATEAUX):
             except ValueError:
                 print("Votre bateau se trouve en dehors de l'océan :/")
                 continue
-
+        # for i in total_bateau:
+        #     x = total_bateau[i] - 1
         if (joueur_colonne, joueur_ligne) not in joueur_bateaux:
             joueur_bateaux.append((joueur_colonne, joueur_ligne))
-            ma_grille[joueur_ligne][joueur_colonne] = '|' # ajout du bateaux dans la grille
+            for i in total_bateau:
+                x = total_bateau[i]
+                #ma_grille[joueur_ligne][joueur_colonne] = '|'
+                ma_grille[joueur_ligne + x][joueur_colonne] = '|'# ajout du bateaux dans la grille
             break
 
 print('------------MA GRILLE---------------------------')
@@ -100,7 +119,8 @@ def another_turn(tour):
 ennemi_bateaux = []
 ordi_grille = ocean.grille()
 
-for i in range(NOMBRE_BATEAUX):
+
+for i in range(nombre_bateau):
     '''Parcours du nombre de bateaux afin de les ajouter dans une liste appartenant à l'ennemi '''
     while True:
         colonne_enemie = random.random_colonne(ordi_grille)
@@ -113,7 +133,7 @@ for i in range(NOMBRE_BATEAUX):
 
 
 grille_tirs = ocean.grille()
-clear.clear()
+#clear.clear()
 #Creation d'une boucle pour s'assurer que l'utilisateur puisse jouer autant de fois qu'il le souhaite
 def main():
     continuer = 1
