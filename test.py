@@ -1,12 +1,6 @@
-from utils import random
-from utils import conversion
-from joueur import Joueur
-from utils.couleur import Couleurs
-from ocean import Ocean
-from bateau import *
-import os
-import clear
-
+import random
+from batailleNavale.joueur import Joueur
+from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
 
 hauteur = 0
@@ -60,6 +54,7 @@ ma_grille = ocean.grille()
 grille_ennemie = ocean.grille()
 grille_tirs = ocean.grille()
 
+
 class BattleshipGame:
 
     def print_grille(self, gri):
@@ -69,6 +64,7 @@ class BattleshipGame:
     def utilisateur_placer_bateaux(self, grille, bateau: dict):
         noms_bateau = []
         coord = []
+
         for b in list(bateau.keys()):
             noms_bateau.append(b[0])
 
@@ -78,23 +74,37 @@ class BattleshipGame:
                 x, y = self.get_coordonnes()
                 ori = self.v_ou_h()
 
-                valide = self.validate(grille, b ,bateau[b], x, y, ori)
+                valide = self.validate(grille, bateau[b], x, y, ori)
                 if not valide:
                     print("Un pirate ne placerait jamais son bateau sur terre...Réessaye.")
                     input("Continuer")
             grille = self.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
-            total_coordonees = []
+            total_coordonees = [[],[],[],[],[]]
             for i in range(len(grille)):
-                for x in range(len(grille[i])):
-                    for f in range(len(noms_bateau)):
-                        a = f
-                        if grille[i][x] == noms_bateau[f]:
-                            total_coordonees.append([])
-                            total_coordonees[a].append((i, x))
-                            a+=1
+                if i != 0:
+                    for x in range(len(grille[i])):
+                        for f in range(len(noms_bateau)):
+                            a = f
+
+                            if grille[i][x] == noms_bateau[f] == 'T':
+                                total_coordonees[0].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'H':
+                                total_coordonees[1].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'S':
+                                total_coordonees[2].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'Q':
+                                total_coordonees[3].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'B':
+                                total_coordonees[4].append((i, x))
+                                a += 1
 
             self.print_grille(grille)
+
 
         for i in total_coordonees:
             if i != []:
@@ -105,15 +115,14 @@ class BattleshipGame:
 
         return grille
 
-
     def ordinateur_placer_bateaux(self, grille, bateau: dict):
-        coord = []
         noms_bateau = []
+        coord = []
         for b in list(bateau.keys()):
             noms_bateau.append(b[0])
             ori = ""
             valide = False
-            while (not valide):
+            while not valide:
                 x = random.randint(1, hauteur)
                 y = random.randint(1, hauteur)
                 o = random.randint(0, 1)
@@ -121,25 +130,40 @@ class BattleshipGame:
                     ori = "v"
                 else:
                     ori = "h"
-                valide = self.validate(grille, b,bateau[b], x, y, ori)
+                valide = self.validate(grille, bateau[b], x, y, ori)
 
             grille = self.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
-            total_coordonees = []
+
+            total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
-                for x in range(len(grille[i])):
-                    for f in range(len(noms_bateau)):
-                        a = f
-                        if grille[i][x] == noms_bateau[f]:
-                            total_coordonees.append([])
-                            total_coordonees[a].append((i, x))
-                            a += 1
+                if i != 0:
+                    for x in range(len(grille[i])):
+                        for f in range(len(noms_bateau)):
+                            a = f
+
+                            if grille[i][x] == noms_bateau[f] == 'T':
+                                total_coordonees[0].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'H':
+                                total_coordonees[1].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'S':
+                                total_coordonees[2].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'Q':
+                                total_coordonees[3].append((i, x))
+                                a += 1
+                            elif grille[i][x] == noms_bateau[f] == 'B':
+                                total_coordonees[4].append((i, x))
+                                a += 1
+
         for i in total_coordonees:
             if i != []:
                 coord.append(i)
-        return coord
+        self.print_grille(grille)
+        #print(coord)
+        #return coord
         return grille
-
-
     def placer_bateaux(self, grille, bateau : int, s : str, ori : str, x: int , y: int):
         """
         accepte la grille la taille et la position du navire, place le navire, il doit déjà être vérifié by user_place_ships function
@@ -178,7 +202,7 @@ class BattleshipGame:
                 print(e)
 
     #bool permet determiner ce que renvoi la fonction
-    def validate(self, grille, nom ,bateau, x: int, y: int, ori : str) -> bool:
+    def validate(self, grille, bateau, x: int, y: int, ori : str) -> bool:
         """
         vérifier si le navire convient, sur la base de sa taille, de a grille, de l'orientation et des coordonnées du navire
         """
@@ -242,7 +266,6 @@ class BattleshipGame:
                                 print(tableau)
             if tir != "toucheAvant":
                 return grille
-        # wesley
 
     def tir_ordinateur(self, grille, tableau):
         """
@@ -267,20 +290,30 @@ class BattleshipGame:
         pass
 
     def jeu_principal(self):
-        utilisateur_place = self.utilisateur_placer_bateaux(ma_grille, total_bateau)
-        ordi_place = self.ordinateur_placer_bateaux(grille_ennemie, total_bateau)
+        pass
+        # utilisateur_place = self.utilisateur_placer_bateaux(ma_grille, total_bateau)
+        # ordi_place = self.ordinateur_placer_bateaux(grille_ennemie, total_bateau)
+        #
+        # for nombre in tours:
+        #     self.print_grille(ma_grille)
+        #
+        #     tirs = self.utilisateur_tir(ordi_place)
 
-        for nombre in tours:
-            self.print_grille(ma_grille)
-
-            tirs = self.utilisateur_tir(ordi_place)
 
 
+b = BattleshipGame()
 
-a = BattleshipGame()
-print(a.print_grille(ma_grille))
+utilisateur_place = b.utilisateur_placer_bateaux(ma_grille, total_bateau)
+ordi_place = b.ordinateur_placer_bateaux(grille_tirs, total_bateau)
+#print(b.print_grille(ordi_place))
+#
+#print(coord_utilisateur)
 
-tir_u = a.utilisateur_tir(grille_ennemie, )
+#coord_ordi = b.get_ordi_coord()
+#print(coord_ordi)
+
+
+#tir_u = a.utilisateur_tir(grille_ennemie, )
 # print(a.print_grille(grille_ennemie))
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
