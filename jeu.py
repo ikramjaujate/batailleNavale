@@ -64,9 +64,17 @@ def print_grille(gri):
 joueur_bateaux = []
 nombre_bateau = len(total_bateau)
 
-
 for i in range(nombre_bateau):
     '''Parcours du nombre de bateaux afin de les ajouter dans une liste appartenant au joueur '''
+    while True:
+        try:
+            sens = str(input("Choisit direction : horizontal ou veritcal ? (introduire v / h) : "))
+            if sens == "h" or sens == "v":
+                break
+        except ValueError:
+            print("Choisit direction")
+            continue
+        sens = sens
     while True:
         # COLONNE DU JOUEUR
         while True:
@@ -93,16 +101,35 @@ for i in range(nombre_bateau):
             except ValueError:
                 print("Votre bateau se trouve en dehors de l'océan :/")
                 continue
+
         # for i in total_bateau:
         #     x = total_bateau[i] - 1
-        if (joueur_colonne, joueur_ligne) not in joueur_bateaux:
-            joueur_bateaux.append((joueur_colonne, joueur_ligne))
-            for i in total_bateau:
-                x = total_bateau[i]
-                #ma_grille[joueur_ligne][joueur_colonne] = '|'
-                ma_grille[joueur_ligne + x][joueur_colonne] = '|'# ajout du bateaux dans la grille
-            break
+        if sens == "h":
+            if (joueur_colonne, joueur_ligne) not in joueur_bateaux:
+                joueur_bateaux.append([(joueur_colonne, joueur_ligne)])
+                ma_grille[joueur_ligne][joueur_colonne] = '—'
 
+
+
+                break
+        elif sens == "v":
+            if (joueur_colonne, joueur_ligne) not in joueur_bateaux:
+                joueur_bateaux.append([(joueur_colonne, joueur_ligne)])
+                ma_grille[joueur_ligne][joueur_colonne] = '|'
+                break
+
+
+print(joueur_bateaux)
+for count in range(len(joueur_bateaux)):
+    i = 0
+    for cases in total_bateau:
+        for long in range(total_bateau[cases]):
+            while len(joueur_bateaux[count]) != total_bateau[cases]:
+                calcul = joueur_bateaux[count][0][i] + 1
+                joueur_bateaux[count].append((joueur_bateaux[count][0][0], calcul))
+                i += 1
+
+print(joueur_bateaux)
 print('------------MA GRILLE---------------------------')
 print_grille(ma_grille) #affichage de notre grille avec les bateaux
 
