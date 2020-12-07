@@ -2,6 +2,7 @@ import random
 from batailleNavale.joueur import Joueur
 from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
+from batailleNavale.clear import clear
 
 hauteur = 0
 largeur = 0
@@ -232,44 +233,48 @@ b = Bateau()
 utilisateur_place = b.utilisateur_placer_bateaux(ma_grille, total_bateau)
 ordi_place = b.ordinateur_placer_bateaux(grille_tirs, total_bateau)
 
-print(coo)
-coord = b.get_coordonnes()
+#print(b.print_grille(grille_tirs))
+# print(coord_bateau_utilisateur)
+#print(coord_bateau_ordi)
+
+#coord = b.get_coordonnes()
 
 
 class Tir:
 
     def tir(self, grille, x: int, y: int) -> str:
+        etat = ""
         if grille[x][y] == ".":
-            return "rate"
+            etat += "rate"
+            return etat
         elif grille[x][y] == "*" or grille[x][y] == "X":
-            return "toucheAvant"
+            etat +="toucheAvant"
+            return etat
         else:
-            return "touche"
+            etat += "touche"
+            return etat
 
-    def utilisateur_tir(self, grille: list, tableau):
-        valide = False
-        while valide:
+    def utilisateur_tir(self, grille: list, tableau, grille_affiche):
+        while True:
             print("Capitaine, ou voulez vous tiré ?")
-            x, y = coord
+            x, y = b.get_coordonnes()
             tir = self.tir(grille, x, y)
             if tir == "rate":
                 print("Capitaine, vous avez rate le tir")
                 grille[x][y] = "*"
-                valide = True
+                grille_affiche[x][y] = "*"
             elif tir == "toucheAvant":
                 print("Capitaine, vous avez déjà touché")
-                valide = True
             elif tir == "touche":
                 print("Bravo capitaine, vous avez touché le bateau")
                 grille[x][y] = "X"
-                valide = True
+                grille_affiche[x][y] = "X"
                 if tir == "touche":
                     grille[x][y] = 'X'
                     for liste in tableau:
                         for element in liste:
                             if (x, y) == element:
                                 liste.remove((x, y))
-                                print(tableau)
             if tir != "toucheAvant":
                 return grille
 
@@ -282,6 +287,7 @@ class Tir:
             y = random.randint(1, hauteur)
             tir = self.tir(grille, x, y)
             if tir == "touche":
+                print("NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX ! ")
                 grille[x][y] = 'X'
                 for liste in tableau:
                     for element in liste:
@@ -289,16 +295,61 @@ class Tir:
                             liste.remove((x, y))
                             print(tableau)
             elif tir == "rate":
+                print("HIHI, ils ont touché la balaine ")
                 grille[x][y] = "*"
             return grille
 
-
+# Encore un tours
+def another_turn(tour):
+    if tour == tours - 1:
+        print("C'est fini....")
+        return False
+    else:
+        return True
 #print(coord_bateau_utilisateur)
 #print(coord_bateau_ordi)
 t = Tir()
-tir = t.utilisateur_tir(ordi_place, coord_bateau_ordi)
 
-# for i in tours:
-#     for nombre_tours in range(0, tours):
-#         print("Capitaine, à votre tour!")
-#
+
+#tir = t.utilisateur_tir(grille_tirs, coord_bateau_ordi)
+
+def main():
+    continuer = 1
+    while continuer:
+        joueurs_points = 0  # stockage des points gagnés par le joueur
+        ennemi_points = 0  # stockage des points gagnés par l'ennemi
+        for nombre_tours in range(0, tours):
+            print("Capitaine, à votre tour!")
+            tir_utilisateur = t.utilisateur_tir(grille_tirs, coord_bateau_ordi, grille_ennemie)
+            print(b.print_grille(grille_ennemie))
+
+            # Tours de l'odinateur
+            print("C'est au tour de l'ennemi")
+            tir_ordi = t.tir_ordinateur(ma_grille, coord_bateau_utilisateur)
+
+            clear()
+            # Resolution tirs joueur
+
+
+
+            print(b.print_grille(ma_grille))
+            if another_turn(tours) == False:
+                break
+
+            print("---------------------------------------------------")
+
+        if joueurs_points == ennemi_points:
+            print("C'était une très bonne partie mon capitaine " + joueur_nom.getNom() + " , vous êtes à égalité")
+        elif joueurs_points < ennemi_points:
+            print("Vous voilà noyé....vous avez perdu moussaillon !")
+        else:
+            print("Jack Sparrow serait très fière de vous capitaine "+ joueur_nom.getNom() + " , vous avez coulé les bateaux ennemis !!")
+        continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+        while continuer != "1" and continuer != "0":
+            print("Chiffre pas valable")
+            continuer = input(str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+        continuer = int(continuer)
+
+
+if __name__ == "__main__":
+    main()
