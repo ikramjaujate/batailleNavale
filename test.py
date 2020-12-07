@@ -19,7 +19,7 @@ while estOk == 0:
     if difficulte == "FACILE":
         hauteur += 6
         largeur += 6
-        tours += 4
+        tours += 8
         estOk = 1
         total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
         total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
@@ -233,12 +233,6 @@ b = Bateau()
 utilisateur_place = b.utilisateur_placer_bateaux(ma_grille, total_bateau)
 ordi_place = b.ordinateur_placer_bateaux(grille_tirs, total_bateau)
 
-#print(b.print_grille(grille_tirs))
-# print(coord_bateau_utilisateur)
-#print(coord_bateau_ordi)
-
-#coord = b.get_coordonnes()
-
 
 class Tir:
 
@@ -248,13 +242,13 @@ class Tir:
             etat += "rate"
             return etat
         elif grille[x][y] == "*" or grille[x][y] == "X":
-            etat +="toucheAvant"
+            etat += "toucheAvant"
             return etat
         else:
             etat += "touche"
             return etat
 
-    def utilisateur_tir(self, grille: list, tableau, grille_affiche):
+    def utilisateur_tir(self, grille: list, tableau, grille_affiche, points: int):
         while True:
             print("Capitaine, ou voulez vous tiré ?")
             x, y = b.get_coordonnes()
@@ -266,6 +260,7 @@ class Tir:
             elif tir == "toucheAvant":
                 print("Capitaine, vous avez déjà touché")
             elif tir == "touche":
+                points += 1
                 print("Bravo capitaine, vous avez touché le bateau")
                 grille[x][y] = "X"
                 grille_affiche[x][y] = "X"
@@ -275,10 +270,11 @@ class Tir:
                         for element in liste:
                             if (x, y) == element:
                                 liste.remove((x, y))
+
             if tir != "toucheAvant":
                 return grille
 
-    def tir_ordinateur(self, grille: list, tableau):
+    def tir_ordinateur(self, grille: list, tableau, points: int):
         """
         générer des coordonnées aléatoires pour que l'ordinateur réalise les mouvements
         """
@@ -287,17 +283,18 @@ class Tir:
             y = random.randint(1, hauteur)
             tir = self.tir(grille, x, y)
             if tir == "touche":
+                points += 1
                 print("NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX ! ")
                 grille[x][y] = 'X'
                 for liste in tableau:
                     for element in liste:
                         if (x, y) == element:
                             liste.remove((x, y))
-                            print(tableau)
             elif tir == "rate":
                 print("HIHI, ils ont touché la balaine ")
                 grille[x][y] = "*"
             return grille
+
 
 # Encore un tours
 def another_turn(tour):
@@ -306,12 +303,9 @@ def another_turn(tour):
         return False
     else:
         return True
-#print(coord_bateau_utilisateur)
-#print(coord_bateau_ordi)
+
+
 t = Tir()
-
-
-#tir = t.utilisateur_tir(grille_tirs, coord_bateau_ordi)
 
 def main():
     continuer = 1
@@ -320,34 +314,52 @@ def main():
         ennemi_points = 0  # stockage des points gagnés par l'ennemi
         for nombre_tours in range(0, tours):
             print("Capitaine, à votre tour!")
-            tir_utilisateur = t.utilisateur_tir(grille_tirs, coord_bateau_ordi, grille_ennemie)
+            t.utilisateur_tir(grille_tirs, coord_bateau_ordi, grille_ennemie, joueurs_points)
+            print("------------------------GRILLE ENNEMI ---------------------------")
             print(b.print_grille(grille_ennemie))
+
+            verifier_coord_ordi = [x for x in coord_bateau_ordi if x != []]
+            # print(verifier_coord_ordi)
+            if len(verifier_coord_ordi) == 0:
+                print("Capitaine, nous avons coulé tous les navires de nos ennemis")
+                break
 
             # Tours de l'odinateur
             print("C'est au tour de l'ennemi")
-            tir_ordi = t.tir_ordinateur(ma_grille, coord_bateau_utilisateur)
+            t.tir_ordinateur(ma_grille, coord_bateau_utilisateur, ennemi_points)
+            print("------------------------MA GRILLE ---------------------------")
+            print(b.print_grille(ma_grille))
+            verifier_coord_utilisateur = [x for x in coord_bateau_utilisateur if x != []]
+            if len(verifier_coord_utilisateur) == 0:
+                print("Capitaine, nous avons coulé tous les navires de nos ennemis")
+                break
 
             clear()
-            # Resolution tirs joueur
 
-
-
-            print(b.print_grille(ma_grille))
             if another_turn(tours) == False:
                 break
 
             print("---------------------------------------------------")
 
+        for liste in verifier_coord_utilisateur:
+            for element in liste:
+                joueurs_points += 1
+        for liste in verifier_coord_ordi:
+            for element in liste:
+                ennemi_points += 1
         if joueurs_points == ennemi_points:
             print("C'était une très bonne partie mon capitaine " + joueur_nom.getNom() + " , vous êtes à égalité")
         elif joueurs_points < ennemi_points:
             print("Vous voilà noyé....vous avez perdu moussaillon !")
         else:
-            print("Jack Sparrow serait très fière de vous capitaine "+ joueur_nom.getNom() + " , vous avez coulé les bateaux ennemis !!")
-        continuer = input( str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+            print(
+                "Jack Sparrow serait très fière de vous capitaine " + joueur_nom.getNom() + " , vous avez coulé les bateaux ennemis !!")
+        continuer = input(str(joueur_nom.getFunction()) + ' ' + str(
+            joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
         while continuer != "1" and continuer != "0":
             print("Chiffre pas valable")
-            continuer = input(str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
+            continuer = input(str(joueur_nom.getFunction()) + ' ' + str(
+                joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
         continuer = int(continuer)
 
 
