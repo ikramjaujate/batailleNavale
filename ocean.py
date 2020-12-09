@@ -23,6 +23,8 @@ class Difficulte:
         elif niveau == 'DIFFICILE':
             self.haut = 11
             return self.haut
+        else:
+            raise ValueError("Introduisez le bon niveau")
 
     def get_tours(self, niveau : str) -> int:
         if niveau == "FACILE":
@@ -34,6 +36,8 @@ class Difficulte:
         elif niveau == 'DIFFICILE':
             self.haut = 20
             return self.tour
+        else:
+            raise ValueError("Introduisez le bon niveau")
 
 
 class Ocean:

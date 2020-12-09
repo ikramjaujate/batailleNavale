@@ -8,7 +8,10 @@ class Joueur:
     :type function : string
     """
     def __init__(self, nom : str):
-        self.username = nom
+        if type(nom) == str:
+            self.username = nom
+        else:
+            raise ValueError("Insérez un string")
 
     def getNom(self) -> str:
         '''Obtient le noms de l'utilisateur'''

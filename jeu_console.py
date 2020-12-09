@@ -227,7 +227,7 @@ class PlaceBateau:
             if user_input == "v" or user_input == "h":
                 return user_input
             else:
-                print("Erreur mon capitaine. Entrez v ou h")
+                raise ValueError("Insérez v ou h")
 
 
 b = PlaceBateau()
