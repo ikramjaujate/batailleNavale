@@ -319,7 +319,7 @@ def main():
             print("------------------------GRILLE ENNEMI ---------------------------")
             print(b.print_grille(grille_ennemie))
 
-            verifier_coord_ordi = [x for x in coord_bateau_ordi if x != []]
+            verifier_coord_ordi = [x for x in coord_bateau_ordi if x != []] #comprehension des liste
             # print(verifier_coord_ordi)
             if len(verifier_coord_ordi) == 0:
                 print("Capitaine, nous avons coulé tous les navires de nos ennemis")
