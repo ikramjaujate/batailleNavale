@@ -263,3 +263,6 @@ def main():
             continuer = input(str(joueur_nom.getFunction()) + ' ' + str(joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
         continuer = int(continuer)
 
+
+if __name__ == '__main__':
+    main()

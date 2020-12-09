@@ -14,7 +14,7 @@ nom_joueur = input("Capitaine, comment-vous appelez vous ?").upper()
 joueur_nom = Joueur(nom_joueur)
 
 difficulte = input(
-    joueur_nom.getFunction() + " " + joueur_nom.getNom() + ", quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
+    "Bonjour Capitaine "  + joueur_nom.getNom() + ", quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
 while estOk == 0:
     if difficulte == "FACILE":
         hauteur += 6
@@ -27,7 +27,7 @@ while estOk == 0:
     elif difficulte == "MOYEN":
         hauteur += 8
         largeur += 8
-        tours += 7
+        tours += 12
         estOk = 1
         total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
         total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
@@ -36,7 +36,7 @@ while estOk == 0:
     elif difficulte == "DIFFICILE":
         hauteur += 11
         largeur += 11
-        tours += 10
+        tours += 20
         estOk = 1
         total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
         total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
@@ -111,6 +111,7 @@ class Bateau:
         for i in total_coordonees:
             if i != []:
                 coord_bateau_utilisateur.append(i)
+        #coord_bateau_utilisateur = [x for x in total_bateau if x != []]
 
         # print(coord)
         input("Capitaine, les bateaux sont placés. Appuyer sur enter pour continuer")
@@ -297,6 +298,9 @@ class Tir:
             return grille
 
 
+# print(coord_bateau_utilisateur)
+# print(coord_bateau_ordi)
+
 # Encore un tours
 def another_turn(tour):
     if tour == tours - 1:
@@ -355,11 +359,11 @@ def main():
         else:
             print(
                 "Jack Sparrow serait très fière de vous capitaine " + joueur_nom.getNom() + " , vous avez coulé les bateaux ennemis !!")
-        continuer = input(str(joueur_nom.getFunction()) + ' ' + str(
+        continuer = input('Capitaine ' + str(
             joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
         while continuer != "1" and continuer != "0":
             print("Chiffre pas valable")
-            continuer = input(str(joueur_nom.getFunction()) + ' ' + str(
+            continuer = input('Capitaine ' + str(
                 joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
         continuer = int(continuer)
 

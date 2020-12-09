@@ -7,7 +7,7 @@ row_header = {0: 'x', 1: ' 1', 2: ' 2', 3: ' 3', 4: ' 4', 5: ' 5', 6: ' 6', 7: '
 
 
 class Ocean:
-    def __init__(self, hauteur, largeur):
+    def __init__(self, hauteur: int, largeur: int):
         """
         Utilisation : mon_ocean = Ocean(hauteur, largeur)
         :param hauteur:
@@ -17,7 +17,7 @@ class Ocean:
         self.haut = hauteur
         self.larg = largeur
 
-    def grille(self):
+    def grille(self) -> list:
         ma_grille = []
         calcule = self.haut + 1
         for x in range(calcule):
