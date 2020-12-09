@@ -82,7 +82,7 @@ class PlaceBateau:
                 if not valide:
                     print("Un pirate ne placerait jamais son bateau sur terre...Réessaye.")
                     input("Continuer")
-            grille = self.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
+            grille = ocean.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
             total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
@@ -138,7 +138,7 @@ class PlaceBateau:
                 ori = "v" if o == 0 else "h"
                 valide = self.validate(grille, bateau[b], x, y, ori)
 
-            grille = self.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
+            grille = ocean.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
             total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
@@ -168,18 +168,6 @@ class PlaceBateau:
                 coord_bateau_ordi.append(i)
         # print(coord)
         # return coord
-        return grille
-
-    def placer_bateaux(self, grille: list, bateau: int, s: str, ori: str, x: int, y: int):
-        """
-        Accepte la grille la taille et la position du navire, place le navire, il doit déjà être vérifié by user_place_ships function
-        """
-        if ori == "v":
-            for i in range(bateau):
-                grille[x + i][y] = s
-        elif ori == "h":
-            for i in range(bateau):
-                grille[x][y + i] = s
         return grille
 
     def get_coordonnes(self):

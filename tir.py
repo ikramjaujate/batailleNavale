@@ -1,6 +1,7 @@
 from batailleNavale.jeu_console import *
 from batailleNavale.utils.clear import clear
 
+
 class Tirer:
 
     def tir(self, grille: list, x: int, y: int) -> str:
@@ -23,7 +24,7 @@ class Tirer:
             etat += "touche"
             return etat
 
-    def utilisateur_tir(self, grille: list, tableau: list, grille_affiche: list, points: int):
+    def utilisateur_tir(self, grille: list, tableau: list, grille_affiche: list, points: int) -> list:
         """
         Permet à l'utilisateur de tirer sur une case de la grille ennemi
 
@@ -58,7 +59,7 @@ class Tirer:
             if tir != "toucheAvant":
                 return grille
 
-    def tir_ordinateur(self, grille: list, tableau: list, points: int):
+    def tir_ordinateur(self, grille: list, tableau: list, points: int) -> list:
         """
         Générer des coordonnées aléatoires pour que l'ordinateur réalise les mouvements
         """
@@ -79,10 +80,12 @@ class Tirer:
                 grille[x][y] = "*"
             return grille
 
+
 t = Tirer()
 
+
 # Encore un tours
-def another_turn(tour):
+def another_turn(tour : int) -> bool:
     if tour == tours - 1:
         print("C'est fini....")
         return False
@@ -144,4 +147,3 @@ def tirer():
             continuer = input('Capitaine ' + str(
                 joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
         continuer = int(continuer)
-
