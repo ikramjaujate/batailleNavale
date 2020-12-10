@@ -102,7 +102,9 @@ class TestGeneral(unittest.TestCase):
         t = Tirer()
         ocean = Ocean(6)
         ma_grille = ocean.grille()
+        ma_grille[1][1] = "X"
         self.assertEqual(t.tir(ma_grille, 1, 4), "rate")
+        self.assertEqual(t.tir(ma_grille, 1, 1), 'toucheAvant')
 
 
 if __name__ == '__main__':
