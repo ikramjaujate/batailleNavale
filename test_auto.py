@@ -3,8 +3,6 @@ from batailleNavale.difficulte import Difficulte
 from batailleNavale.joueur import Joueur
 from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
-from batailleNavale.tir import Tirer
-from batailleNavale.game import another_turn
 
 
 class TestGeneral(unittest.TestCase):
@@ -93,33 +91,6 @@ class TestGeneral(unittest.TestCase):
         self.assertEqual(d.get_tours("DIFFICILE"), 20)
         self.assertRaises(ValueError, lambda: Difficulte().get_hauteur("a"))
 
-    def test_another_tours(self):
-        another = another_turn(5)
-        self.assertEqual(type(another), bool)
-        self.assertEqual(another, True)
-
-    def test_tir_etat(self):
-        t = Tirer()
-        ocean = Ocean(6)
-        ma_grille = ocean.grille()
-        ma_grille[1][1] = "X"
-        self.assertEqual(t.tir(ma_grille, 1, 4), "rate")
-        self.assertEqual(t.tir(ma_grille, 1, 1), 'toucheAvant')
-        ma_grille[1][2] = "T"
-        self.assertEqual(t.tir(ma_grille, 1,2), "touche")
-
-    def test_tir_ordi(self):
-        t = Tirer()
-        ocean = Ocean(6)
-        ma_grille = ocean.grille()
-        self.assertEqual(type(t.tir_ordinateur(ma_grille, [[(5,4), (5,5)]], 0 )), list)
-
-    def test_tir_utilisateur(self):
-        t = Tirer()
-        ocean = Ocean(6)
-        ma_grille = ocean.grille()
-        grille_affiche = ocean.grille()
-        self.assertEqual(type(t.utilisateur_tir(ma_grille, [[(5, 4), (5, 5)]], grille_affiche,0)), list)
 
 if __name__ == '__main__':
     unittest.main()
