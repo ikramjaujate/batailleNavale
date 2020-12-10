@@ -1,5 +1,5 @@
 # Définitions des colonnes et lignes quis eront utilisé dans notre grille
-from batailleNavale.joueur import Joueur
+#from batailleNavale.joueur import Joueur
 
 col_header = {0: 'x', 1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'I', 10: 'J', 11: 'K'}
 row_header = {0: 'x', 1: ' 1', 2: ' 2', 3: ' 3', 4: ' 4', 5: ' 5', 6: ' 6', 7: ' 7', 8: ' 8', 9: ' 9', 10: '10',
@@ -52,3 +52,7 @@ class Ocean:
                 grille[x][y + i] = s
         return grille
 
+o = Ocean(2)
+o.get_haut()
+o.grille()
+o.placer_bateaux(o.grille(), 1, 'b', "v", 2, 2)

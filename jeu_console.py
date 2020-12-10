@@ -3,6 +3,7 @@ from batailleNavale.tir import *
 from batailleNavale.ocean import *
 from batailleNavale.bateau import *
 from batailleNavale.difficulte import *
+from batailleNavale.joueur import *
 
 nom = input("Comment vous appelez-vous ?")
 joueur_nom = Joueur(nom)
