@@ -5,41 +5,6 @@ col_header = {0: 'x', 1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8:
 row_header = {0: 'x', 1: ' 1', 2: ' 2', 3: ' 3', 4: ' 4', 5: ' 5', 6: ' 6', 7: ' 7', 8: ' 8', 9: ' 9', 10: '10',
               11: '11'}
 
-class Difficulte:
-    def __init__(self):
-        """
-        Classe définissant la hauteur et le nombre de tours en fonction de la difficulté
-        """
-        self.haut = 0
-        self.tour = 0
-
-    def get_hauteur(self, niveau : str) -> int:
-        if niveau == "FACILE":
-            self.haut = 6
-            return self.haut
-        elif niveau == 'MOYEN':
-            self.haut = 8
-            return self.haut
-        elif niveau == 'DIFFICILE':
-            self.haut = 11
-            return self.haut
-        else:
-            raise ValueError("Introduisez le bon niveau")
-
-    def get_tours(self, niveau : str) -> int:
-        if niveau == "FACILE":
-            self.tour = 8
-            return self.tour
-        elif niveau == 'MOYEN':
-            self.haut = 12
-            return self.tour
-        elif niveau == 'DIFFICILE':
-            self.haut = 20
-            return self.tour
-        else:
-            raise ValueError("Introduisez le bon niveau")
-
-
 class Ocean:
     def __init__(self, hauteur : int):
         """

@@ -17,4 +17,10 @@ class Joueur:
         '''Obtient le noms de l'utilisateur'''
         return self.username
 
+#j = Joueur(1)
+j = Joueur("ikram")
+
+
+
+
 

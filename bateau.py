@@ -70,3 +70,23 @@ class TheDyingGull(Bateau):
     @property
     def getNom(self) -> str:
         return "The Dying Gull"
+
+t= TheDyingGull("The Dying Gull")
+t.length
+t.getNom
+
+h = HmsIntercepteur('HMS Intercepteur')
+h.getNom
+h.length
+
+s = SilentMary("Silent Mary")
+s.getNom
+s.length
+
+b = BlackPearl('Black Pearl')
+b.getNom
+b.length
+
+q= QueenAnneRevenge("Queen Anne's Revenge")
+q.getNom
+q.length
