@@ -9,15 +9,30 @@ class Ocean:
     def __init__(self, hauteur : int):
         """
         Utilisation : mon_ocean = Ocean(hauteur)
-        :param hauteur:
-        :return: un ocean
+        :param hauteur: la hauteur de la grille
+
+        :type hauteur: int
+
+        PRE : -
+        POST : Assigne la valeur hauteur introduite comme paramettre à une autre variable
         """
         self.haut = hauteur
 
     def get_haut(self) -> int:
+        """
+        Getter qui permet de prendre la valeur hauteur
+
+        PRE: -
+        POST : Renvoi la valeur hauteur
+        """
         return self.haut
 
     def grille(self) -> list:
+        """ Création de la grille sous forme de liste
+
+        PRE: -
+        POST: Renvoie la grille sous forme de liste
+        """
         ma_grille = []
         calcule = self.haut + 1
         for x in range(calcule):
@@ -34,15 +49,36 @@ class Ocean:
         """
         Function qui permet de afficher la grille en console
 
-        :param gri: list
-        :return: Return la grille sous forme de string dans la console
+        :param gri: la grille qui est utilisé
+        :type gri: list
+
+        PRE : -
+        POST : Renvoi la grille sous forme de string pour qu'elle soit afficher dans la console
+
         """
         for ligne in gri:
             print("  ".join(ligne))
 
     def placer_bateaux(self, grille: list, bateau: int, s: str, ori: str, x: int, y: int) ->list :
         """
-        Accepte la grille la taille et la position du navire, place le navire, il doit déjà être vérifié by user_place_ships function
+        Accepte dans la grille la taille et la position du navire, place le navire, il doit déjà être vérifié by user_place_ships function
+
+        :param grille: grille dans la quelle on place les bateaux
+        :param bateau : bateau qui est placer dans la grille
+        :param s : première lettre du bateau a placé
+        :param ori : orientation du bateau
+        :param x : position de la ligne
+        :param y : position de la colonne
+
+        :type grille: list
+        :type bateau: int
+        :type s: str
+        :type ori: str
+        :type x: int
+        :type y: int
+
+        PRE : -
+        POST : Place les bateaux dans la grille et renvoi celle-ci
         """
         if ori == "v":
             for i in range(bateau):

@@ -11,7 +11,7 @@ class TestGeneral(unittest.TestCase):
     def test_get_nom_joueur(self):
         nom_joueur = "ikram"
         self.assertEqual(Joueur(nom_joueur).getNom(), "ikram")
-        self.assertRaises(ValueError, lambda : Joueur(1))
+        self.assertRaises(TypeError, lambda : Joueur(1))
 
     def test_get_haut(self):
         ocean = Ocean(6)

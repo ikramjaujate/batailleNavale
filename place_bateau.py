@@ -60,11 +60,14 @@ class PlaceBateau:
     def utilisateur_placer_bateaux(self, grille: list, bateau: dict) -> list:
         """
         Function qui permet à l'utilisateur de placer les bateau dans la grille
+        :param grille: la grille sur laquelle il y a le placement des bateau
+        :param bateau: contient sous forme de dictionnaire, tous les bateaux a placé sur la grille
 
-        :param grille: list
-        :param bateau: dict
+        :type grille: list
+        :type bateau: dict
 
-        :return:
+        PRE: -
+        POST: Renvoi la grille ainsi que ajoute dans une variable global le coordonnées des bateaux placé par l'utilisateur
         """
         noms_bateau = []
 
@@ -120,10 +123,14 @@ class PlaceBateau:
         """
         Function qui permet à l'ordinateur de placer les bateaux aléatoirement dans la grille
 
-        :param grille: list
-        :param bateau: dict
+        :param grille: la grille sur laquelle il y a le placement des bateau
+        :param bateau: contient sous forme de dictionnaire, tous les bateaux a placé sur la grille
 
-        :return:
+        :type grille: list
+        :type bateau: dict
+
+        PRE: -
+        POST: Renvoi la grille ainsi que ajoute dans une variable global le coordonnées des bateaux placé par l'ordinateur de forme aléatoire
         """
         noms_bateau = []
         for b in list(bateau.keys()):
@@ -172,7 +179,13 @@ class PlaceBateau:
     def get_coordonnes(self):
         """
         Function qui permet à l'utilisateur de choisir le placement des bateaux
-        :return:
+
+        PRE: -
+        POST: Renvoi les coordonnées désirés par les utilisateurs
+
+        RAISE : Si pas assez de coordonnées ou trop, il y a Exception
+        RAISE : Si les coordonnées désirés sont en dehors de la hauteur de la grille, il y a Exception
+        :exception : Si les valeurs ne sont pas valides, il y a ValueError
         """
         while True:
             user_input = input("Entrez coordonnées (ligne,colonne) ? ")
@@ -200,6 +213,20 @@ class PlaceBateau:
     def validate(self, grille: list, bateau, x: int, y: int, ori: str) -> bool:
         """
         Vérifier si le navire convient, sur la base de sa taille, de a grille, de l'orientation et des coordonnées du navire
+
+        :param grille : la grille sur laquelle l'utilisateur veut placer les bateaux
+        :param bateau : les bateaux a placé sur la grille
+        :param x : placement dans la ligne
+        :param y : placement dans la colonne
+        :param ori : orientation du bateau
+
+        :type grille : list
+        :type x : int
+        :type y : int
+        :type ori : str
+
+        PRE: -
+        POST : Renvoi True si le placement du bateau est bon, renvoi False si ce n'est pas le cas
         """
         if ori == "v":
             for i in range(bateau):
@@ -220,6 +247,10 @@ class PlaceBateau:
     def v_ou_h(self) -> str:
         """
         Function qui permet déterminer l'orientation des bateaux
+
+        PRE: -
+        POST : Renvoi l'orientation désiré par l'utilisateur
+        RAISE : Si l'utilisateur choisit autre chose que v ou h alors il y a ValueError
         """
         while True:
             user_input = input("verticale ou horizontale (v,h) ? ")

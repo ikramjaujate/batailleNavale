@@ -7,10 +7,12 @@ class Tirer:
         """
         Vérifier l'état de la case dans laquelle les utilisateurs souhaitent tiré
 
-        :param grille:
-        :param x:
-        :param y:
-        :return:
+        :param grille: list
+        :param x: int
+        :param y: int
+
+        PRE: -
+        POST : Renvoi l'état de la case dans laquelle les utilisateurs ont tiré
         """
         etat = ""
         if grille[x][y] == ".":
@@ -27,11 +29,13 @@ class Tirer:
         """
         Permet à l'utilisateur de tirer sur une case de la grille ennemi
 
-        :param grille:
-        :param tableau:
-        :param grille_affiche:
-        :param points:
-        :return:
+        :param grille: list
+        :param tableau: list
+        :param grille_affiche: list
+        :param points: int
+
+        PRE: -
+        POST : Renvoi la grille avec la case que l'utilisateur à viser
         """
         while True:
             print("Capitaine, ou voulez vous tiré ?")
@@ -61,6 +65,9 @@ class Tirer:
     def tir_ordinateur(self, grille: list, tableau: list, points: int) -> list:
         """
         Générer des coordonnées aléatoires pour que l'ordinateur réalise les mouvements
+
+        PRE: -
+        POST : Renvoi la grille avec la case que l'utilisateur à viser
         """
         while True:
             x = random.randint(1, nivel)
