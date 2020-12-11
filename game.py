@@ -1,10 +1,11 @@
-from batailleNavale.tir import Tirer
-from batailleNavale.jeu_console import *
+from batailleNavale.tir import *
+from batailleNavale.place_bateau import *
 from batailleNavale.utils.clear import clear
 
 
+utilisateur_place = PlaceBateau().utilisateur_placer_bateaux(ma_grille, total_bateau)
+ordi_place = PlaceBateau().ordinateur_placer_bateaux(grille_tirs, total_bateau)
 
-t = Tirer()
 # Encore un tours
 def another_turn(tour : int) -> bool:
     if tour == tours - 1:
@@ -22,7 +23,7 @@ def jeu():
         for nombre_tours in range(0, tours):
             # Tours du joueur
             print("Capitaine, à votre tour!")
-            t.utilisateur_tir(grille_tirs, coord_bateau_ordi, grille_ennemie, joueurs_points)
+            Tirer().utilisateur_tir(grille_tirs, coord_bateau_ordi, grille_ennemie, joueurs_points)
             print("------------------------GRILLE ENNEMI ---------------------------")
             ocean.print_grille(grille_ennemie)
 
@@ -33,7 +34,7 @@ def jeu():
 
             # Tours de l'ordinateur
             print("C'est au tour de l'ennemi")
-            t.tir_ordinateur(ma_grille, coord_bateau_utilisateur, ennemi_points)
+            Tirer().tir_ordinateur(ma_grille, coord_bateau_utilisateur, ennemi_points)
             print("------------------------MA GRILLE ---------------------------")
             ocean.print_grille(ma_grille)
             verifier_coord_utilisateur = [x for x in coord_bateau_utilisateur if x != []]

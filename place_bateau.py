@@ -1,9 +1,8 @@
 import random
-from batailleNavale.tir import *
-from batailleNavale.ocean import *
+from batailleNavale.difficulte import Difficulte
 from batailleNavale.bateau import *
-from batailleNavale.difficulte import *
-from batailleNavale.joueur import *
+from batailleNavale.joueur import Joueur
+from batailleNavale.ocean import Ocean
 
 nom = input("Comment vous appelez-vous ?")
 joueur_nom = Joueur(nom)
@@ -13,7 +12,6 @@ total_bateau = {}
 
 difficulte = input(
     "Bonjour Capitaine , quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
-
 
 while estOk == 0:
     if difficulte == "FACILE":
@@ -40,22 +38,22 @@ while estOk == 0:
         difficulte = input("Capitaine, quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
         estOk = 0
 
-
-#DEFINITION DE LA DIFFICULTÉ
+# DEFINITION DE LA DIFFICULTÉ
 diff = Difficulte()
 nivel = diff.get_hauteur(difficulte)
 tours = diff.get_tours(difficulte)
 
-#DEFINITION DE L'OCEAN
+# DEFINITION DE L'OCEAN
 ocean = Ocean(nivel)
 ma_grille = ocean.grille()
 
 grille_ennemie = ocean.grille()
 grille_tirs = ocean.grille()
 
-#DEFINITION COORDONNEES
+# DEFINITION COORDONNEES
 coord_bateau_utilisateur = []
 coord_bateau_ordi = []
+
 
 class PlaceBateau:
 
@@ -83,7 +81,7 @@ class PlaceBateau:
                 if not valide:
                     print("Un pirate ne placerait jamais son bateau sur terre...Réessaye.")
                     input("Continuer")
-            grille = ocean.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
+            grille = Ocean(nivel).placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
             total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
@@ -108,7 +106,7 @@ class PlaceBateau:
                                 total_coordonees[4].append((i, x))
                                 a += 1
 
-            ocean.print_grille(grille)
+            Ocean(nivel).print_grille(grille)
 
         for i in total_coordonees:
             if i != []:
@@ -139,7 +137,7 @@ class PlaceBateau:
                 ori = "v" if o == 0 else "h"
                 valide = self.validate(grille, bateau[b], x, y, ori)
 
-            grille = ocean.placer_bateaux(grille, bateau[b], b[0], ori, x, y)
+            grille = Ocean(nivel).placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
             total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
@@ -231,6 +229,5 @@ class PlaceBateau:
                 raise ValueError("Insérez v ou h")
 
 
-b = PlaceBateau()
-utilisateur_place = b.utilisateur_placer_bateaux(ma_grille, total_bateau)
-ordi_place = b.ordinateur_placer_bateaux(grille_tirs, total_bateau)
+# b = PlaceBateau()
+

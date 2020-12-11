@@ -1,5 +1,5 @@
 import random
-from batailleNavale.jeu_console import PlaceBateau, nivel
+from batailleNavale.place_bateau import PlaceBateau, nivel
 
 class Tirer:
 

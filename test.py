@@ -121,5 +121,6 @@ class TestGeneral(unittest.TestCase):
         grille_affiche = ocean.grille()
         self.assertEqual(type(t.utilisateur_tir(ma_grille, [[(5, 4), (5, 5)]], grille_affiche,0)), list)
 
+
 if __name__ == '__main__':
     unittest.main()
