@@ -5,6 +5,7 @@ from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
 from batailleNavale.tir import Tirer
 from batailleNavale.game import another_turn
+from batailleNavale.utils.couleur import Couleurs
 
 
 class TestGeneral(unittest.TestCase):
@@ -121,6 +122,41 @@ class TestGeneral(unittest.TestCase):
         grille_affiche = ocean.grille()
         self.assertEqual(type(t.utilisateur_tir(ma_grille, [[(5, 4), (5, 5)]], grille_affiche,0)), list)
 
+    def test_couleur_end(self):
+        self.assertEqual(Couleurs.CEND, '\33[0m' )
+        self.assertTrue(Couleurs.CEND == '\33[0m')
+
+    def test_couleur_noir(self):
+        self.assertEqual(Couleurs.CBLACK, '\33[30m' )
+        self.assertTrue(Couleurs.CBLACK == '\33[30m')
+
+    def test_couleur_rouge(self):
+        self.assertEqual(Couleurs.CRED, '\33[31m')
+        self.assertTrue(Couleurs.CRED == '\33[31m')
+
+    def test_couleur_vert(self):
+        self.assertEqual(Couleurs.CGREEN, '\33[32m')
+        self.assertTrue(Couleurs.CGREEN == '\33[32m')
+
+    def test_couleur_jaune(self):
+        self.assertEqual(Couleurs.CYELLOW, '\33[33m')
+        self.assertTrue(Couleurs.CYELLOW == '\33[33m')
+
+    def test_couleur_blue(self):
+        self.assertEqual(Couleurs.CBLUE, '\33[34m')
+        self.assertTrue(Couleurs.CBLUE == '\33[34m')
+
+    def test_couleur_violet(self):
+        self.assertEqual(Couleurs.CVIOLET, '\33[35m')
+        self.assertTrue(Couleurs.CVIOLET == '\33[35m')
+
+    def test_couleur_beige(self):
+        self.assertEqual(Couleurs.CBEIGE, '\33[36m')
+        self.assertTrue(Couleurs.CBEIGE == '\33[36m')
+
+    def test_couleur_blanc(self):
+        self.assertEqual(Couleurs.CWHITE, '\33[37m')
+        self.assertTrue(Couleurs.CWHITE == '\33[37m')
 
 if __name__ == '__main__':
     unittest.main()

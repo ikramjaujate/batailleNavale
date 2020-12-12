@@ -1,6 +1,5 @@
 from batailleNavale.tir import *
 from batailleNavale.place_bateau import *
-from batailleNavale.utils.clear import clear
 
 
 utilisateur_place = PlaceBateau().utilisateur_placer_bateaux(ma_grille, total_bateau)
@@ -41,8 +40,6 @@ def jeu():
             if len(verifier_coord_utilisateur) == 0:
                 print("Capitaine, nous avons coulé tous les navires de nos ennemis")
                 break
-
-            clear()
 
             if another_turn(tours) == False:
                 break
