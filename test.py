@@ -158,5 +158,11 @@ class TestGeneral(unittest.TestCase):
         self.assertEqual(Couleurs.CWHITE, '\33[37m')
         self.assertTrue(Couleurs.CWHITE == '\33[37m')
 
+    def test_encore_tours(self):
+        encore_quatre_tours = another_turn(4)
+        self.assertEqual(type(encore_quatre_tours), bool)
+        self.assertTrue(encore_quatre_tours)
+
+
 if __name__ == '__main__':
     unittest.main()

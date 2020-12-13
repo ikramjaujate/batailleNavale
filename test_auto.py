@@ -5,7 +5,6 @@ from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
 from batailleNavale.utils.couleur import Couleurs
 
-
 class TestGeneral(unittest.TestCase):
     def test_get_nom_joueur(self):
         nom_joueur = "ikram"
@@ -19,7 +18,6 @@ class TestGeneral(unittest.TestCase):
     def test_grille(self):
         ocean = Ocean(6)
         self.assertTrue(ocean.grille(), list)
-
 
     def test_placer_bateaux(self):
         ocean = Ocean(6)
@@ -127,6 +125,8 @@ class TestGeneral(unittest.TestCase):
     def test_couleur_blanc(self):
         self.assertEqual(Couleurs.CWHITE, '\33[37m')
         self.assertTrue(Couleurs.CWHITE == '\33[37m')
+
+
 
 if __name__ == '__main__':
     unittest.main()
