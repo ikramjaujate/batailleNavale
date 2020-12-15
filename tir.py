@@ -1,5 +1,5 @@
 import random
-from batailleNavale.place_bateau import PlaceBateau, nivel
+from batailleNavale.place_bateau import PlaceBateau, niveau
 
 class Tirer:
 
@@ -70,8 +70,8 @@ class Tirer:
         POST : Renvoi la grille avec la case que l'utilisateur à viser
         """
         while True:
-            x = random.randint(1, nivel)
-            y = random.randint(1, nivel)
+            x = random.randint(1, niveau)
+            y = random.randint(1, niveau)
             tir = self.tir(grille, x, y)
             if tir == "touche":
                 points += 1

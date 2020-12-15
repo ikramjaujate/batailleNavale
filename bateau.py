@@ -11,12 +11,12 @@ class BlackPearl(Bateau):
 
     @property
     def length(self) -> int:
-        """getter qui permet d'obtenir la longeur du bateau"""
+        """Function qui permet d'obtenir la longeur du bateau"""
         return self.longeur
 
     @property
     def getNom(self) -> str:
-        "getter qui permet d'obtenir le nom du bateau"
+        "Function qui permet d'obtenir le nom du bateau"
         return "Black Pearl"
 
 #Herite de la classe Bateau
@@ -27,12 +27,12 @@ class QueenAnneRevenge(Bateau):
 
     @property
     def length(self) -> int:
-        """getter qui permet d'obtenir la longeur du bateau"""
+        """Function qui permet d'obtenir la longeur du bateau"""
         return self.longeur
 
     @property
     def getNom(self) -> str:
-        "getter qui permet d'obtenir le nom du bateau"
+        "Function qui permet d'obtenir le nom du bateau"
         return "Queen Anne's Revenge"
 
 #Herite de la classe Bateau
@@ -43,12 +43,12 @@ class SilentMary(Bateau):
 
     @property
     def length(self) -> int:
-        """getter qui permet d'obtenir la longeur du bateau"""
+        """Function qui permet d'obtenir la longeur du bateau"""
         return self.longeur
 
     @property
     def getNom(self) -> str:
-        "getter qui permet d'obtenir le nom du bateau"
+        "Function qui permet d'obtenir le nom du bateau"
         return "Silent Mary"
 
 #Herite de la classe Bateau
@@ -59,12 +59,12 @@ class HmsIntercepteur(Bateau):
 
     @property
     def length(self) -> int:
-        """getter qui permet d'obtenir la longeur du bateau"""
+        """Function qui permet d'obtenir la longeur du bateau"""
         return self.longeur
 
     @property
     def getNom(self) -> str:
-        "getter qui permet d'obtenir le nom du bateau"
+        "Function qui permet d'obtenir le nom du bateau"
         return "HMS Intercepteur"
 
 #Herite de la classe Bateau
@@ -75,30 +75,11 @@ class TheDyingGull(Bateau):
 
     @property
     def length(self) -> int:
-        """getter qui permet d'obtenir la longeur du bateau"""
+        """Function qui permet d'obtenir la longeur du bateau"""
         return self.longeur
 
     @property
     def getNom(self) -> str:
-        "getter qui permet d'obtenir le nom du bateau"
+        "Function qui permet d'obtenir le nom du bateau"
         return "The Dying Gull"
 
-t= TheDyingGull("The Dying Gull")
-t.length
-t.getNom
-
-h = HmsIntercepteur('HMS Intercepteur')
-h.getNom
-h.length
-
-s = SilentMary("Silent Mary")
-s.getNom
-s.length
-
-b = BlackPearl('Black Pearl')
-b.getNom
-b.length
-
-q= QueenAnneRevenge("Queen Anne's Revenge")
-q.getNom
-q.length

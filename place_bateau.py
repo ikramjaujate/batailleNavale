@@ -7,44 +7,50 @@ from batailleNavale.ocean import Ocean
 nom = input("Comment vous appelez-vous ?")
 joueur_nom = Joueur(nom)
 
-estOk = 0
+
 total_bateau = {}
 
-difficulte = input(
-    "Bonjour Capitaine , quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
+def difficulter_choisir():
+    estOk = 0
+    difficulte = input(
+        "Bonjour Capitaine , quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
 
-while estOk == 0:
-    if difficulte == "FACILE":
-        estOk = 1
-        total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
-        total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
-        continue
-    elif difficulte == "MOYEN":
-        estOk = 1
-        total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
-        total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
-        total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
-        continue
-    elif difficulte == "DIFFICILE":
-        estOk = 1
-        total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
-        total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
-        total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
-        total_bateau[QueenAnneRevenge("Queen Anne's Revenge").getNom] = QueenAnneRevenge("Queen Anne's Revenge").length
-        total_bateau[BlackPearl("Black Pearl").getNom] = BlackPearl("Black Pearl").length
-        continue
-    else:
-        print("Ce niveau n'existe pas :/")
-        difficulte = input("Capitaine, quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
-        estOk = 0
+    while estOk == 0:
+        if difficulte == "FACILE":
+            estOk = 1
+            total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            return "FACILE"
+            continue
+        elif difficulte == "MOYEN":
+            estOk = 1
+            total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
+            return "MOYEN"
+            continue
+        elif difficulte == "DIFFICILE":
+            estOk = 1
+            total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
+            total_bateau[QueenAnneRevenge("Queen Anne's Revenge").getNom] = QueenAnneRevenge("Queen Anne's Revenge").length
+            total_bateau[BlackPearl("Black Pearl").getNom] = BlackPearl("Black Pearl").length
+            return "DIFFICILE"
+            continue
+        else:
+            print("Ce niveau n'existe pas :/")
+            difficulte = input("Capitaine, quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
+            estOk = 0
 
+difficulte_choisit = difficulter_choisir()
 # DEFINITION DE LA DIFFICULTÉ
 diff = Difficulte()
-nivel = diff.get_hauteur(difficulte)
-tours = diff.get_tours(difficulte)
+niveau = diff.get_hauteur(difficulte_choisit)
+tours = diff.get_tours(difficulte_choisit)
 
 # DEFINITION DE L'OCEAN
-ocean = Ocean(nivel)
+ocean = Ocean(niveau)
 ma_grille = ocean.grille()
 
 grille_ennemie = ocean.grille()
@@ -84,7 +90,7 @@ class PlaceBateau:
                 if not valide:
                     print("Un pirate ne placerait jamais son bateau sur terre...Réessaye.")
                     input("Continuer")
-            grille = Ocean(nivel).placer_bateaux(grille, bateau[b], b[0], ori, x, y)
+            grille = Ocean(niveau).placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
             total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
@@ -109,7 +115,7 @@ class PlaceBateau:
                                 total_coordonees[4].append((i, x))
                                 a += 1
 
-            Ocean(nivel).print_grille(grille)
+            Ocean(niveau).print_grille(grille)
 
         for i in total_coordonees:
             if i != []:
@@ -138,36 +144,36 @@ class PlaceBateau:
             ori = ""
             valide = False
             while not valide:
-                x = random.randint(1, nivel)
-                y = random.randint(1, nivel)
+                x = random.randint(1, niveau)
+                y = random.randint(1, niveau)
                 o = random.randint(0, 1)
                 ori = "v" if o == 0 else "h"
                 valide = self.validate(grille, bateau[b], x, y, ori)
 
-            grille = Ocean(nivel).placer_bateaux(grille, bateau[b], b[0], ori, x, y)
+            grille = Ocean(niveau).placer_bateaux(grille, bateau[b], b[0], ori, x, y)
 
             total_coordonees = [[], [], [], [], []]
             for i in range(len(grille)):
                 if i != 0:
                     for x in range(len(grille[i])):
                         for f in range(len(noms_bateau)):
-                            a = f
+                            compteur = f
 
                             if grille[i][x] == noms_bateau[f] == 'T':
                                 total_coordonees[0].append((i, x))
-                                a += 1
+                                compteur += 1
                             elif grille[i][x] == noms_bateau[f] == 'H':
                                 total_coordonees[1].append((i, x))
-                                a += 1
+                                compteur += 1
                             elif grille[i][x] == noms_bateau[f] == 'S':
                                 total_coordonees[2].append((i, x))
-                                a += 1
+                                compteur += 1
                             elif grille[i][x] == noms_bateau[f] == 'Q':
                                 total_coordonees[3].append((i, x))
-                                a += 1
+                                compteur += 1
                             elif grille[i][x] == noms_bateau[f] == 'B':
                                 total_coordonees[4].append((i, x))
-                                a += 1
+                                compteur += 1
 
         for i in total_coordonees:
             if i != []:
@@ -199,8 +205,8 @@ class PlaceBateau:
                 coordonnees[0] = int(coordonnees[0])
                 coordonnees[1] = int(coordonnees[1])
 
-                if coordonnees[0] > nivel or coordonnees[0] < 0 or coordonnees[1] > nivel or coordonnees[1] < 0:
-                    raise Exception("Introduisez des valeurs entre 0 et " + str(nivel))
+                if coordonnees[0] > niveau or coordonnees[0] < 0 or coordonnees[1] > niveau or coordonnees[1] < 0:
+                    raise Exception("Introduisez des valeurs entre 0 et " + str(niveau))
 
                 # si tout va bien, renvoyer les coordonnées
                 return coordonnees
@@ -230,13 +236,13 @@ class PlaceBateau:
         """
         if ori == "v":
             for i in range(bateau):
-                if x + i > nivel:
+                if x + i > niveau:
                     return False
                 elif "." not in grille[x][y] or "." not in grille[x + i][y]:
                     return False
         elif ori == "h":
             for i in range(bateau):
-                if y + i > nivel:
+                if y + i > niveau:
                     return False
                 elif "." not in grille[x][y] or "." not in grille[x][y + i]:
                     return False
@@ -250,6 +256,7 @@ class PlaceBateau:
 
         PRE: -
         POST : Renvoi l'orientation désiré par l'utilisateur
+
         RAISE : Si l'utilisateur choisit autre chose que v ou h alors il y a ValueError
         """
         while True:
@@ -259,6 +266,4 @@ class PlaceBateau:
             else:
                 raise ValueError("Insérez v ou h")
 
-
-# b = PlaceBateau()
 
