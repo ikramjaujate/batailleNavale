@@ -126,7 +126,5 @@ class TestGeneral(unittest.TestCase):
         self.assertEqual(Couleurs.CWHITE, '\33[37m')
         self.assertTrue(Couleurs.CWHITE == '\33[37m')
 
-
-
 if __name__ == '__main__':
     unittest.main()
