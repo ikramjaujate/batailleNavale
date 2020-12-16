@@ -26,7 +26,7 @@ def jeu():
             print("------------------------GRILLE ENNEMI ---------------------------")
             ocean.print_grille(grille_ennemie)
 
-            verifier_coord_ordi = [x for x in coord_bateau_ordi if x != []]  # comprehension des liste
+            verifier_coord_ordi = [tableau for tableau in coord_bateau_ordi if tableau != []]  # comprehension des liste
             if len(verifier_coord_ordi) == 0:
                 print("Capitaine, nous avons coulé tous les navires de nos ennemis")
                 break

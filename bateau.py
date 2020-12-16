@@ -1,6 +1,12 @@
 class Bateau:
     def __init__(self, nom : str):
-        """Nom du bateau"""
+        """Nom du bateau
+        :param nom : nom du bateay
+        :type nom: str
+
+        PRE: -
+        POST: Assigne le nom du bateau à la variable self.nom
+        """
         self.nom = nom
 
 #Herite de la classe Bateau
