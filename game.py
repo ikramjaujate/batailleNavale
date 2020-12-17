@@ -1,71 +1,124 @@
-from batailleNavale.tir import *
-from batailleNavale.place_bateau import *
+from batailleNavale.prints_phrases import boum, plouf, boumOrdi, ploufOrdi, joueur_gagne, ordi_gagne, egalite, \
+    chiffre_pas_valable
+from joueur import Joueur
+from difficulte import Difficulte
+from bateau import *
+from ocean import Ocean
+from tir import * 
+
+class Game:
+    total_bateau = {}
+    ma_grille = []
+    grille_tirs = []
+    coord_bateau_utilisateur = []
+    coord_bateau_ordi = []
+    grille_ennemie = []
+    
+    def __init__(self, view):
+        self.view = view
+        self.difficulty = "FACILE"
+        self.tours = 0
+
+    def placeBateau(self):
+        if self.difficulty == "FACILE":
+            self.total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            self.total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+        elif self.difficulty == "MOYEN":
+            self.total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            self.total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            self.total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
+        elif self.difficulty == "DIFFICILE":
+            self.total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
+            self.total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
+            self.total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
+            self.total_bateau[QueenAnneRevenge("Queen Anne's Revenge").getNom] = QueenAnneRevenge("Queen Anne's Revenge").length
+            self.total_bateau[BlackPearl("Black Pearl").getNom] = BlackPearl("Black Pearl").length
+
+        difficulter = Difficulte()
+        self.niveau = difficulter.get_hauteur(self.difficulty)
+        self.tours = difficulter.get_tours(self.difficulty)
+
+        ocean = Ocean(self.niveau)
+        self.ma_grille = ocean.grille()
+
+        self.grille_ennemie = ocean.grille()
+        self.grille_tirs = ocean.grille()
+
+        userBat = self.view.utilisateur_placer_bateaux(self.ma_grille,self.total_bateau,self.niveau)
+        self.coord_bateau_utilisateur = userBat[1]
+        
+        computerBat = self.view.ordinateur_placer_bateaux(self.grille_tirs,self.total_bateau,self.niveau)
+        self.coord_bateau_ordi = computerBat[1]
+        print(self.coord_bateau_ordi)
+
+    def play(self):
+        nom_humain = self.view.demandeNomUtilisateur()
+        joueur_humain = Joueur(nom_humain)
+        self.difficulty = self.view.getDifficulte()
+        self.placeBateau()
+        joueur_ordi = Joueur("ordinateur")
+
+        while self.view.continuer :
+            while self.tours != 0:
+                tir = self.view.utilisateur_tir(self.grille_tirs)
+                while tir["status"] == "toucheAvant":
+                    tir = self.view.utilisateur_tir(self.grille_tirs)
+                if tir["status"] == "rate":
+                    self.grille_tirs[tir["x"]][tir["y"]] = "*"
+                    self.grille_ennemie[tir["x"]][tir["y"]] = "*"
+                    plouf(self.grille_ennemie)
+                elif tir["status"] == "touche":
+                    joueur_humain.joueurs_points += 1
+                    self.grille_tirs[tir["x"]][tir["y"]] = "X"
+                    self.grille_ennemie[tir["x"]][tir["y"]] = "X"
+                    for liste in self.coord_bateau_ordi:
+                        for element in liste:
+                            if (tir["x"],tir["y"]) == element:
+                                liste.remove((tir["x"], tir["y"]))
+                    boum(self.grille_ennemie)
+                    verifier_coord_ordi = [tableau for tableau in self.coord_bateau_ordi if tableau != []]
+                    if len(verifier_coord_ordi) == 0:
+                        joueur_gagne()
+                        self.view.continuer = 0
+                        break
 
 
-utilisateur_place = PlaceBateau().utilisateur_placer_bateaux(ma_grille, total_bateau)
-ordi_place = PlaceBateau().ordinateur_placer_bateaux(grille_tirs, total_bateau)
+                tir = self.view.tir_ordinateur(self.ma_grille)
+                if tir["status"] == "touche":
+                    joueur_ordi.joueurs_points += 1
+                    self.ma_grille[tir["x"]][tir["y"]] = 'X'
+                    for liste in self.coord_bateau_utilisateur :
+                        for element in liste:
+                            if (tir["x"], tir["y"]) == element:
+                                liste.remove((tir["x"], tir["y"]))
+                    boumOrdi(self.ma_grille)
 
-# Encore un tours
-def another_turn(tour : int) -> bool:
-    if tour == tours - 1:
-        print("C'est fini....")
-        return False
-    else:
-        return True
+                    verifier_coord_utilisateur = [x for x in self.coord_bateau_utilisateur if x != []]
+                    if len(verifier_coord_utilisateur) == 0:
+                        ordi_gagne()
+                        self.view.continuer = 0
+                        break
+                elif tir["status"] == "rate":
+                    self.ma_grille[tir["x"]][tir["y"]] = "*"
+                    ploufOrdi(self.ma_grille)
+
+                self.tours = self.tours - 1
+
+            if joueur_humain.joueurs_points == joueur_ordi.joueurs_points:
+                egalite()
+            elif joueur_humain.joueurs_points > joueur_ordi.joueurs_points:
+                joueur_gagne()
+            elif joueur_humain.joueurs_points < joueur_ordi.joueurs_points:
+                ordi_gagne()
+            self.view.continuer = self.view.demandeContinuerJeu()
+            while type(self.view.continuer) != int:
+                chiffre_pas_valable()
+                self.view.continuer = self.view.demandeContinuerJeu()
+
+            # // supprimer code inutile
+            # // optimiser code
+            # //  - éviter duplication code logique tir
 
 
-def jeu():
-    continuer = 1
-    while continuer:
-        joueurs_points = 0  # stockage des points gagnés par le joueur
-        ennemi_points = 0  # stockage des points gagnés par l'ennemi
-        for nombre_tours in range(0, tours):
-            # Tours du joueur
-            print("Capitaine, à votre tour!")
-            Tirer().utilisateur_tir(grille_tirs, coord_bateau_ordi, grille_ennemie, joueurs_points)
-            print("------------------------GRILLE ENNEMI ---------------------------")
-            ocean.print_grille(grille_ennemie)
-
-            verifier_coord_ordi = [tableau for tableau in coord_bateau_ordi if tableau != []]  # comprehension des liste
-            if len(verifier_coord_ordi) == 0:
-                print("Capitaine, nous avons coulé tous les navires de nos ennemis")
-                break
-
-            # Tours de l'ordinateur
-            print("C'est au tour de l'ennemi")
-            Tirer().tir_ordinateur(ma_grille, coord_bateau_utilisateur, ennemi_points)
-            print("------------------------MA GRILLE ---------------------------")
-            ocean.print_grille(ma_grille)
-            verifier_coord_utilisateur = [x for x in coord_bateau_utilisateur if x != []]
-            if len(verifier_coord_utilisateur) == 0:
-                print("Capitaine, nous avons coulé tous les navires de nos ennemis")
-                break
-
-            if another_turn(tours) == False:
-                break
-
-            print("---------------------------------------------------")
-
-        for liste in verifier_coord_utilisateur:
-            for element in liste:
-                joueurs_points += 1
-        for liste in verifier_coord_ordi:
-            for element in liste:
-                ennemi_points += 1
-        if joueurs_points == ennemi_points:
-            print("C'était une très bonne partie mon capitaine " + joueur_nom.getNom() + " , vous êtes à égalité")
-        elif joueurs_points < ennemi_points:
-            print("Vous voilà noyé....vous avez perdu moussaillon !")
-        else:
-            print(
-                "Jack Sparrow serait très fière de vous capitaine " + joueur_nom.getNom() + " , vous avez coulé les bateaux ennemis !!")
-        continuer = input('Capitaine ' + str(
-            joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
-        while continuer != "1" and continuer != "0":
-            print("Chiffre pas valable")
-            continuer = input('Capitaine ' + str(
-                joueur_nom.getNom()) + " , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non) ")
-        continuer = int(continuer)
-
-if __name__ == "__main__":
-    jeu()
+            break
+           
