@@ -1,10 +1,8 @@
-from batailleNavale.prints_phrases import boum, plouf, boumOrdi, ploufOrdi, joueur_gagne, ordi_gagne, egalite, \
-    chiffre_pas_valable
-from joueur import Joueur
-from difficulte import Difficulte
-from bateau import *
-from ocean import Ocean
-from tir import * 
+from batailleNavale.prints_phrases import boum, plouf, boumOrdi, ploufOrdi, joueur_gagne, ordi_gagne, egalite, chiffre_pas_valable
+from batailleNavale.joueur import Joueur
+from batailleNavale.difficulte import Difficulte
+from batailleNavale.bateau import *
+from batailleNavale.ocean import Ocean
 
 class Game:
     total_bateau = {}
