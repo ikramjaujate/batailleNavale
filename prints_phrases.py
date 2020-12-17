@@ -29,4 +29,17 @@ def ploufOrdi(grille: list):
 
 def boumOrdi(grille: list):
     print("NOOOOON !!! MOUSSAILLON, ILS ONT TOUCHÉ UN DE NOS BATEAUX ! ")
+    print("------------------------MA GRILLE ---------------------------")
     print_grille(grille)
+
+def joueur_gagne():
+    print("Jack Sparrow serait très fière de vous capitaine, ")
+
+def ordi_gagne():
+    print("Capitaine, vous nous avez deçu....")
+
+def egalite():
+    print("C'était une très bonne partie mon capitaine, vous êtes à égalité ")
+
+def chiffre_pas_valable():
+    print("Chiffre pas valable")
