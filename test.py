@@ -4,7 +4,6 @@ from batailleNavale.game import Game
 from batailleNavale.joueur import Joueur
 from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
-from batailleNavale.prints_phrases import print_grille, plouf, boum, ploufOrdi, boumOrdi
 from batailleNavale.tir import Tirer
 from batailleNavale.utils.couleur import Couleurs
 
@@ -147,13 +146,5 @@ class TestGeneral(unittest.TestCase):
         self.assertTrue(type(Game.coord_bateau_utilisateur), list)
         self.assertTrue(type(Game.grille_ennemie), list)
 
-    def test_phrases(self):
-        ocean = Ocean(6)
-        grille = ocean.grille()
-        self.assertTrue(type(print_grille(grille)), str )
-        self.assertTrue(type(plouf(grille)), str )
-        self.assertTrue(type(boum(grille)), str)
-        self.assertTrue(type(ploufOrdi(grille)), str )
-        self.assertTrue(type(boumOrdi(grille)), str )
 if __name__ == '__main__':
     unittest.main()
