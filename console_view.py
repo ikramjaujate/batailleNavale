@@ -1,6 +1,6 @@
 import random
-from game import *
-from tir import *
+from batailleNavale.game import *
+from batailleNavale.tir import *
 from batailleNavale.prints_phrases import print_grille
 
 class ConsoleView:
