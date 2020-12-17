@@ -27,8 +27,3 @@ class Joueur:
 
     def getPoints(self):
         return self.joueurs_points
-
-
-
-
-
