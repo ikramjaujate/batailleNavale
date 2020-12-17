@@ -1,8 +1,3 @@
-# Définitions des colonnes et lignes quis eront utilisé dans notre grille
-#from batailleNavale.joueur import Joueur
-
-
-
 class Ocean:
     def __init__(self, hauteur : int):
         """
@@ -19,7 +14,7 @@ class Ocean:
         self.row_header = {0: 'x', 1: ' 1', 2: ' 2', 3: ' 3', 4: ' 4', 5: ' 5', 6: ' 6', 7: ' 7', 8: ' 8', 9: ' 9', 10: '10',
                       11: '11'}
 
-    def get_haut(self) -> int:
+    def get_haut(self):
         """
         Getter qui permet de prendre la valeur hauteur
 
@@ -28,7 +23,7 @@ class Ocean:
         """
         return self.haut
 
-    def grille(self) -> list:
+    def grille(self):
         """ Création de la grille sous forme de liste
 
         PRE: -
@@ -45,20 +40,6 @@ class Ocean:
             ma_grille[i][0] = self.row_header[i]  # row
 
         return ma_grille
-
-    def print_grille(self, grille: list):
-        """
-        Function qui permet de afficher la grille en console
-
-        :param grille: la grille qui est utilisé
-        :type grille: list
-
-        PRE : -
-        POST : Renvoi la grille sous forme de string pour qu'elle soit afficher dans la console
-
-        """
-        for ligne in grille:
-            print("  ".join(ligne))
 
     def placer_bateaux(self, grille: list, bateau: int, premier_lettre_bateau: str, ori: str, x: int, y: int) ->list :
         """
