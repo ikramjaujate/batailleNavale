@@ -53,9 +53,3 @@ class Difficulte:
         else:
             raise ValueError("Introduisez le bon niveau")
 
-d = Difficulte()
-# d.tour
-# d.haut
-# d.get_tours("FACILE")
-# d.get_hauteur("FACILE")
-# d.get_tours("tonto")
