@@ -1,4 +1,3 @@
-# Classe Joueur
 class Joueur:
     """
     :param nom: le nom de l'utilisateur
@@ -14,12 +13,8 @@ class Joueur:
     """
     def __init__(self, nom : str):
         self.joueurs_points = 0
-        try :
-            self.username = nom
-            if type(self.username) != str:
-                raise TypeError("Insérez un string")
-        except TypeError as te:
-            print(te)
+        self.username = nom
+
 
     def getNom(self) -> str:
         '''Obtient le nom de l'utilisateur'''
