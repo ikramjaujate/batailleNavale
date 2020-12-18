@@ -1,9 +1,11 @@
 import unittest
+from batailleNavale.console_view import ConsoleView
 from batailleNavale.difficulte import Difficulte
-from batailleNavale.game import Game
+from batailleNavale.game import Jeu
 from batailleNavale.joueur import Joueur
 from batailleNavale.ocean import Ocean
 from batailleNavale.bateau import *
+from batailleNavale.testView import testView
 from batailleNavale.tir import Tirer
 from batailleNavale.utils.couleur import Couleurs
 
@@ -11,7 +13,7 @@ class TestGeneral(unittest.TestCase):
     def test_get_nom_joueur(self):
         nom_joueur = "ikram"
         self.assertEqual(Joueur(nom_joueur).getNom(), "ikram")
-        #self.assertRaises(TypeError, lambda : Joueur(1))
+        self.assertEqual(Joueur(nom_joueur).getPoints(), 0)
 
     def test_get_haut(self):
         ocean = Ocean(6)
@@ -21,11 +23,11 @@ class TestGeneral(unittest.TestCase):
         ocean = Ocean(6)
         self.assertTrue(ocean.grille(), list)
 
-
     def test_placer_bateaux(self):
         ocean = Ocean(6)
         ma_grille = ocean.grille()
         self.assertEqual(type(ocean.placer_bateaux(ma_grille, 1, 'b', "v", 2, 2)), list)
+        self.assertEqual(type(ocean.placer_bateaux(ma_grille, 1, 'b', "h", 2, 2)), list)
 
     def test_silent_mary(self):
         silent_mary = SilentMary("Silent Mary")
@@ -140,11 +142,33 @@ class TestGeneral(unittest.TestCase):
         self.assertTrue(Couleurs.CWHITE == '\33[37m')
 
     def test_game_variables_globales(self):
-        self.assertTrue(type(Game.total_bateau), list)
-        self.assertTrue(type(Game.ma_grille), list)
-        self.assertTrue(type(Game.grille_tirs), list)
-        self.assertTrue(type(Game.coord_bateau_utilisateur), list)
-        self.assertTrue(type(Game.grille_ennemie), list)
+        self.assertTrue(type(Jeu.total_bateau), list)
+        self.assertTrue(type(Jeu.ma_grille), list)
+        self.assertTrue(type(Jeu.grille_tirs), list)
+        self.assertTrue(type(Jeu.coord_bateau_utilisateur), list)
+        self.assertTrue(type(Jeu.grille_ennemie), list)
+
+    def test_game(self):
+        view = testView()
+        jeu = Jeu(view)
+
+        jeu.placeBateau()
+        self.assertEqual(len(jeu.coord_bateau_utilisateur), 2)
+        self.assertEqual(jeu.coord_bateau_utilisateur, [[(1, 4), (2, 4)], [(1, 1), (2, 1), (3, 1)]])
+        self.assertEqual(jeu.coord_bateau_ordi, [[(2, 5), (2, 6)], [(1, 4), (2, 4), (3, 4)]])
+        self.assertEqual(jeu.difficulty, "DIFFICILE")
+
+    def test_console_view(self):
+        console = ConsoleView()
+        self.assertRaises(TypeError, lambda: console.check_nom("1"))
+        self.assertTrue(console.getContinuer(), 1)
+        ocean = Ocean(11)
+        grille_ordi = ocean.grille()
+        self.assertEqual(console.validate(grille_ordi, 2, 1, 1, "v"), False)
+        self.assertEqual(console.validate(grille_ordi, 2, 1, 1, "h"), False)
+        self.assertEqual(type(console.ordinateur_placer_bateaux(grille_ordi, {"The Dying Gull" : 2, "HMS Intercepteur" : 3, "Silent Mary" : 3, "Queen Anne's Revenge": 4, "Black Pearl": 5}, 11)), list)
+        self.assertEqual(type(console.tir_ordinateur(grille_ordi)), dict)
+
 
 if __name__ == '__main__':
     unittest.main()
