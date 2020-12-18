@@ -1,20 +1,62 @@
 import random
+from batailleNavale.print_text import print_grille
+from batailleNavale.ViewInterface import ViewInterface
 from batailleNavale.game import *
 from batailleNavale.tir import *
-from batailleNavale.prints_phrases import print_grille
 
-class ConsoleView:
+class ConsoleView(ViewInterface):
     def __init__(self):
         self.niv = 0
         self.continuer = 1
 
-    def demandeNomUtilisateur(self):
-        return input("Comment vous appelez-vous ? ")
+    def check_nom(self, nom):
+        """
+        Function qui vérifie si le nom de l'utilisateur est bien un string ou pas
+        :param nom: nom introduit par utilisateur
+        :return: nom
 
+        RAISES : Si nom autre chose que string alors excéption
+        """
+        try:
+            nom = int(nom)
+        except:
+            return nom
+
+        if type(nom) != str:
+            raise TypeError("Insérez un string")
+
+    def demandeNomUtilisateur(self):
+        """
+        Function qui permet de demander à l'utilisateur son nom
+        :return:
+        """
+        while True:
+            try:
+                nom = input("Comment vous appelez-vous ? ")
+                self.check_nom(nom)
+                break
+            except:
+                print("Insérez un string")
     def demandeContinuerJeu(self):
-        return int(input('Capitaine , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non )'))
+        """
+        Function qui démande à l'utilisateur de continuer ou pas le jeu
+        PRE: -
+        POST : Modifie la valeur de continuer
+        """
+        self.continuer = int(input('Capitaine , souhaitez-vous continuer la bataille ?(1 pour oui, 0 pour non )'))
+
+    def getContinuer(self):
+        """
+        Function qui permet d'obtenir la valeur de continuer
+        """
+        return self.continuer
 
     def getDifficulte(self):
+        """
+        Function qui demande à l'utilisateur de introduire une difficulté
+
+        :return:  Renvoi la difficulté sous forme de string et upperCase
+        """
         self.estOk = 0
         difficulte = input(
             "Bonjour Capitaine , quel niveau choisissez-vous ? Facile, moyen, difficile ?").upper()
@@ -94,7 +136,7 @@ class ConsoleView:
 
         return [grille, coord_bateau_utilisateur]
 
-    def ordinateur_placer_bateaux(self, grille: list, bateau: dict, niveau:int):
+    def ordinateur_placer_bateaux(self, grille: list, bateau: dict, niveau:int) -> list:
         """
         Function qui permet à l'ordinateur de placer les bateaux aléatoirement dans la grille
         :param grille: la grille sur laquelle il y a le placement des bateau
@@ -233,7 +275,7 @@ class ConsoleView:
             "y": y
         }
 
-    def tir_ordinateur(self, grille: list):
+    def tir_ordinateur(self, grille: list) -> dict:
         """
         Générer des coordonnées aléatoires pour que l'ordinateur réalise les mouvements
         PRE: -
@@ -247,4 +289,7 @@ class ConsoleView:
             "x": x,
             "y": y
         }
-Game(ConsoleView()).play()
+
+
+if __name__ == "__main__":
+    Jeu(ConsoleView()).play()
