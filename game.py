@@ -4,7 +4,6 @@ from batailleNavale.bateau import *
 from batailleNavale.ocean import Ocean
 from batailleNavale.print_text import joueur_gagne, boum, boumOrdi, ploufOrdi, egalite, ordi_gagne, plouf
 
-
 class Jeu:
     total_bateau = {}
     ma_grille = []
