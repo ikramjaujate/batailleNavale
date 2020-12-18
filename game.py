@@ -1,10 +1,11 @@
-from batailleNavale.prints_phrases import boum, plouf, boumOrdi, ploufOrdi, joueur_gagne, ordi_gagne, egalite, chiffre_pas_valable
 from batailleNavale.joueur import Joueur
 from batailleNavale.difficulte import Difficulte
 from batailleNavale.bateau import *
 from batailleNavale.ocean import Ocean
+from batailleNavale.print_text import joueur_gagne, boum, boumOrdi, ploufOrdi, egalite, ordi_gagne, plouf
 
-class Game:
+
+class Jeu:
     total_bateau = {}
     ma_grille = []
     grille_tirs = []
@@ -13,8 +14,9 @@ class Game:
     grille_ennemie = []
     
     def __init__(self, view):
+        self.niveau = 0
         self.view = view
-        self.difficulty = "FACILE"
+        self.difficulty = "DIFFICILE"
         self.tours = 0
 
     def placeBateau(self):
@@ -38,16 +40,14 @@ class Game:
 
         ocean = Ocean(self.niveau)
         self.ma_grille = ocean.grille()
-
         self.grille_ennemie = ocean.grille()
         self.grille_tirs = ocean.grille()
 
         userBat = self.view.utilisateur_placer_bateaux(self.ma_grille,self.total_bateau,self.niveau)
         self.coord_bateau_utilisateur = userBat[1]
-        
         computerBat = self.view.ordinateur_placer_bateaux(self.grille_tirs,self.total_bateau,self.niveau)
         self.coord_bateau_ordi = computerBat[1]
-        print(self.coord_bateau_ordi)
+
 
     def play(self):
         nom_humain = self.view.demandeNomUtilisateur()
@@ -76,10 +76,9 @@ class Game:
                     boum(self.grille_ennemie)
                     verifier_coord_ordi = [tableau for tableau in self.coord_bateau_ordi if tableau != []]
                     if len(verifier_coord_ordi) == 0:
-                        joueur_gagne()
+                        joueur_gagne(joueur_humain.getPoints())
                         self.view.continuer = 0
                         break
-
 
                 tir = self.view.tir_ordinateur(self.ma_grille)
                 if tir["status"] == "touche":
@@ -93,7 +92,7 @@ class Game:
 
                     verifier_coord_utilisateur = [x for x in self.coord_bateau_utilisateur if x != []]
                     if len(verifier_coord_utilisateur) == 0:
-                        ordi_gagne()
+                        ordi_gagne(joueur_humain.getPoints())
                         self.view.continuer = 0
                         break
                 elif tir["status"] == "rate":
@@ -103,20 +102,16 @@ class Game:
                 self.tours = self.tours - 1
 
             if joueur_humain.joueurs_points == joueur_ordi.joueurs_points:
-                egalite()
+                egalite(str(joueur_humain.getPoints()))
             elif joueur_humain.joueurs_points > joueur_ordi.joueurs_points:
-                joueur_gagne()
+                joueur_gagne(str(joueur_humain.getPoints()))
             elif joueur_humain.joueurs_points < joueur_ordi.joueurs_points:
-                ordi_gagne()
-            self.view.continuer = self.view.demandeContinuerJeu()
+                ordi_gagne(str(joueur_humain.getPoints()))
+
+            self.view.demandeContinuerJeu()
+
             while type(self.view.continuer) != int:
-                chiffre_pas_valable()
-                self.view.continuer = self.view.demandeContinuerJeu()
-
-            # // supprimer code inutile
-            # // optimiser code
-            # //  - éviter duplication code logique tir
-
+                self.view.chiffre_pas_valable()
+                self.view.demandeContinuerJeu()
 
             break
-           
