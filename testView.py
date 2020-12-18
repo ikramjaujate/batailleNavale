@@ -1,4 +1,4 @@
-from ViewInterface import ViewInterface
+from batailleNavale.ViewInterface import ViewInterface
 
 class testView(ViewInterface):
 
