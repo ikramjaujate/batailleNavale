@@ -52,4 +52,3 @@ class Difficulte:
             return self.tour
         else:
             raise ValueError("Introduisez le bon niveau")
-
