@@ -15,18 +15,18 @@ class Jeu:
     def __init__(self, view):
         self.niveau = 0
         self.view = view
-        self.difficulty = "DIFFICILE"
+        self.difficulter = "DIFFICILE"
         self.tours = 0
 
     def placeBateau(self):
-        if self.difficulty == "FACILE":
+        if self.difficulter == "FACILE":
             self.total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
             self.total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
-        elif self.difficulty == "MOYEN":
+        elif self.difficulter == "MOYEN":
             self.total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
             self.total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
             self.total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
-        elif self.difficulty == "DIFFICILE":
+        elif self.difficulter == "DIFFICILE":
             self.total_bateau[TheDyingGull("The Dying Gull").getNom] = TheDyingGull("The Dying Gull").length
             self.total_bateau[HmsIntercepteur("HMS Intercepteur").getNom] = HmsIntercepteur("HMS Intercepteur").length
             self.total_bateau[SilentMary("Silent Mary").getNom] = SilentMary("Silent Mary").length
@@ -34,8 +34,8 @@ class Jeu:
             self.total_bateau[BlackPearl("Black Pearl").getNom] = BlackPearl("Black Pearl").length
 
         difficulter = Difficulte()
-        self.niveau = difficulter.get_hauteur(self.difficulty)
-        self.tours = difficulter.get_tours(self.difficulty)
+        self.niveau = difficulter.get_hauteur(self.difficulter)
+        self.tours = difficulter.get_tours(self.difficulter)
 
         ocean = Ocean(self.niveau)
         self.ma_grille = ocean.grille()
@@ -51,7 +51,7 @@ class Jeu:
     def play(self):
         nom_humain = self.view.demandeNomUtilisateur()
         joueur_humain = Joueur(nom_humain)
-        self.difficulty = self.view.getDifficulte()
+        self.difficulter = self.view.getDifficulte()
         self.placeBateau()
         joueur_ordi = Joueur("ordinateur")
 
