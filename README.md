@@ -1,4 +1,5 @@
-# bataille navale
+# Bataille navale ![test Status](https://img.shields.io/badge/test-passing%80-green)
+
 > Implémentation du projet BATAILLE NAVALE dans le cadre du cours de Développement informatique II (Python).
 
 ## Objectif
